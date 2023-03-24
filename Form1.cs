@@ -2,18 +2,25 @@ namespace FormatNames {
     public partial class Form1 : Form {
 
         private OpenFileDialog openfiledialog1;
+        string path;
 
         public Form1() {
             InitializeComponent();
             openfiledialog1 = new OpenFileDialog();
-
+            path = "";
         }
 
         private void FileSelectButton_Click(object sender, EventArgs e) {
+            fileName_TextBox.BackColor = System.Drawing.SystemColors.Control;
             if (openfiledialog1.ShowDialog() == DialogResult.OK) {
-                String path = openfiledialog1.FileName;
-                formatFile(path);
+                path = openfiledialog1.FileName;
+                fileName_TextBox.Text = path;
             }
+        }
+
+        private void format_Button_Click(object sender, EventArgs e) {
+            formatFile(path);
+            fileName_TextBox.BackColor = Color.ForestGreen;
         }
 
         private void formatFile(String path) {
