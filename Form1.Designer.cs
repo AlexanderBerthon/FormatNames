@@ -25,12 +25,16 @@
         private void InitializeComponent() {
             this.fileName_TextBox = new System.Windows.Forms.TextBox();
             this.selectFile_button = new System.Windows.Forms.Button();
+            this.format_Button = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // fileName_TextBox
             // 
+            this.fileName_TextBox.BackColor = System.Drawing.SystemColors.Control;
+            this.fileName_TextBox.Enabled = false;
             this.fileName_TextBox.Location = new System.Drawing.Point(12, 21);
             this.fileName_TextBox.Name = "fileName_TextBox";
+            this.fileName_TextBox.ReadOnly = true;
             this.fileName_TextBox.Size = new System.Drawing.Size(160, 23);
             this.fileName_TextBox.TabIndex = 0;
             // 
@@ -44,11 +48,22 @@
             this.selectFile_button.UseVisualStyleBackColor = true;
             this.selectFile_button.Click += new System.EventHandler(this.FileSelectButton_Click);
             // 
+            // format_Button
+            // 
+            this.format_Button.Location = new System.Drawing.Point(55, 90);
+            this.format_Button.Name = "format_Button";
+            this.format_Button.Size = new System.Drawing.Size(75, 23);
+            this.format_Button.TabIndex = 2;
+            this.format_Button.Text = "Format";
+            this.format_Button.UseVisualStyleBackColor = true;
+            this.format_Button.Click += new System.EventHandler(this.format_Button_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(184, 211);
+            this.Controls.Add(this.format_Button);
             this.Controls.Add(this.selectFile_button);
             this.Controls.Add(this.fileName_TextBox);
             this.Name = "Form1";
@@ -62,5 +77,6 @@
 
         private TextBox fileName_TextBox;
         private Button selectFile_button;
+        private Button format_Button;
     }
 }
