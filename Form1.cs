@@ -1,4 +1,12 @@
 namespace FormatNames {
+
+    /// <summary>
+    /// BUGS
+    /// - program working perfectly surpisingly
+    /// - 1 name out of 56 missing
+    /// - the last pair from reverse list
+    /// - off by 1 error?
+    /// </summary>
     public partial class Form1 : Form {
 
         private OpenFileDialog openfiledialog1;
@@ -44,7 +52,7 @@ namespace FormatNames {
                 Console.Error.WriteLine("File Path Error");
             }
 
-            for(int i = 1; i<reverse.Count -1; i+= 2) {
+            for(int i = 1; i<reverse.Count; i+= 2) {
                 done.Add(reverse[i] + " " + reverse[i - 1]);
             }
 
