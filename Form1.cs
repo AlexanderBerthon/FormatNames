@@ -1,14 +1,6 @@
 namespace FormatNames {
 
-    /// <summary>
-    /// BUGS
-    /// - program working perfectly surpisingly
-    /// - 1 name out of 56 missing
-    /// - the last pair from reverse list
-    /// - off by 1 error?
-    /// </summary>
     public partial class Form1 : Form {
-
         private OpenFileDialog openfiledialog1;
         string path;
 
@@ -28,37 +20,38 @@ namespace FormatNames {
 
         private void format_Button_Click(object sender, EventArgs e) {
             formatFile(path);
-            fileName_TextBox.BackColor = Color.LimeGreen;
         }
 
         private void formatFile(String path) {
-            List<string> done = new List<string>();
-            List<string> reverse = new List<string>();
+            List<string> correctFormat = new List<string>(); 
+            List<string> incorrectFormat = new List<string>();
 
             if (File.Exists(path)) {
                 using (StreamReader sr = File.OpenText(path)) {
-                    string s;
-                    while ((s = sr.ReadLine()) != null) {
-                        if (s.Contains(",")) {
-                            reverse.AddRange(s.Split(",", StringSplitOptions.TrimEntries));
+                    string inputLine;
+                    while ((inputLine = sr.ReadLine()) != null) {
+                        if (inputLine.Contains(",")) {
+                            incorrectFormat.AddRange(inputLine.Split(",", StringSplitOptions.TrimEntries));
                         }
                         else {
-                            done.Add(s);
+                            correctFormat.Add(inputLine);
                         }
                     }
                 }
+                fileName_TextBox.BackColor = Color.LimeGreen;
             }
             else {
                 Console.Error.WriteLine("File Path Error");
+                fileName_TextBox.BackColor = Color.Firebrick;
             }
 
-            for(int i = 1; i<reverse.Count; i+= 2) {
-                done.Add(reverse[i] + " " + reverse[i - 1]);
+            for (int i = 1; i< incorrectFormat.Count; i+= 2) {
+                correctFormat.Add(incorrectFormat[i] + " " + incorrectFormat[i - 1]);
             }
 
-            File.WriteAllLines(path, done);
+            File.WriteAllLines(path, correctFormat);
             using (StreamWriter sw = File.CreateText(path)) {
-                foreach(string s in done) {
+                foreach(string s in correctFormat) {
                     sw.WriteLine(s);
                 }
             }
