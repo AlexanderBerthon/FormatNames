@@ -1,5 +1,11 @@
 namespace FormatNames {
-
+    /*
+    NOTE: 
+    This program only works on .txt files (as far as I know)
+    if you select a file that isn't a .txt file it will 100% corrupt the file
+    :)
+    I should probably prevent this from happening.. BUT that functionality might be handy?
+    */
     public partial class Form1 : Form {
         private OpenFileDialog openfiledialog1;
         string path;
