@@ -33,7 +33,7 @@ namespace FormatNames {
             List<string> correctFormat = new List<string>(); 
             List<string> incorrectFormat = new List<string>();
 
-            if (File.Exists(path)) {
+            if (File.Exists(path) && path.Contains(".txt")) {
                 using (StreamReader sr = File.OpenText(path)) {
                     string inputLine;
                     while ((inputLine = sr.ReadLine()) != null) {
@@ -57,6 +57,12 @@ namespace FormatNames {
                         sw.WriteLine(s);
                     }
                 }
+            }
+            else if (File.Exists(path)) {
+                Console.Error.WriteLine("Error: Invalid file type");
+                fileName_TextBox.Text = "Error: Invalid file type";
+                fileName_TextBox.BackColor = Color.Firebrick;
+                fileName_TextBox.ForeColor = Color.White;
             }
             else {
                 Console.Error.WriteLine("File Path Error");
