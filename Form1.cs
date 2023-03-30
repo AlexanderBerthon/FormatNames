@@ -14,6 +14,7 @@ namespace FormatNames {
             fileName_TextBox.BackColor = System.Drawing.SystemColors.Control;
             if (openfiledialog1.ShowDialog() == DialogResult.OK) {
                 path = openfiledialog1.FileName;
+                fileName_TextBox.ForeColor = Color.Black;
                 fileName_TextBox.Text = openfiledialog1.SafeFileName;
             }
         }
@@ -39,23 +40,29 @@ namespace FormatNames {
                     }
                 }
                 fileName_TextBox.BackColor = Color.LimeGreen;
+
+                for (int i = 1; i < incorrectFormat.Count; i += 2) {
+                    correctFormat.Add(incorrectFormat[i] + " " + incorrectFormat[i - 1]);
+                }
+
+                File.WriteAllLines(path, correctFormat);
+                using (StreamWriter sw = File.CreateText(path)) {
+                    foreach (string s in correctFormat) {
+                        sw.WriteLine(s);
+                    }
+                }
             }
             else {
                 Console.Error.WriteLine("File Path Error");
                 fileName_TextBox.BackColor = Color.Firebrick;
-            }
-
-            for (int i = 1; i< incorrectFormat.Count; i+= 2) {
-                correctFormat.Add(incorrectFormat[i] + " " + incorrectFormat[i - 1]);
-            }
-
-            File.WriteAllLines(path, correctFormat);
-            using (StreamWriter sw = File.CreateText(path)) {
-                foreach(string s in correctFormat) {
-                    sw.WriteLine(s);
+                fileName_TextBox.ForeColor = Color.White;
+                if (path == "") {
+                    fileName_TextBox.Text = "Error: Select a file first";
+                }
+                else {
+                    fileName_TextBox.Text = "Error: Bad file path";
                 }
             }
         }
-
     }
 }
