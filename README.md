@@ -1,4 +1,8 @@
 # FormatNames
+
+***!!!THIS ONLY WORKS ON .TXT FILES DO NOT RUN ON ANY OTHER FILE TYPE OR THE FILE WILL BE CORRUPTED AND DATA LOST!!!***
+
+
 I just make apps to automate repetitive tasks that I run across at work.
 
 One thing that is annoying is when people send me lists of names in different formats. 
