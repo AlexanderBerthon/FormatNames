@@ -31,7 +31,7 @@
             // fileName_TextBox
             // 
             this.fileName_TextBox.BackColor = System.Drawing.SystemColors.Control;
-            this.fileName_TextBox.Enabled = false;
+            this.fileName_TextBox.ForeColor = System.Drawing.SystemColors.WindowText;
             this.fileName_TextBox.Location = new System.Drawing.Point(12, 21);
             this.fileName_TextBox.Name = "fileName_TextBox";
             this.fileName_TextBox.ReadOnly = true;
@@ -62,12 +62,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(184, 211);
+            this.ClientSize = new System.Drawing.Size(184, 121);
             this.Controls.Add(this.format_Button);
             this.Controls.Add(this.selectFile_button);
             this.Controls.Add(this.fileName_TextBox);
             this.Name = "Form1";
-            this.Text = "Form1";
             this.ResumeLayout(false);
             this.PerformLayout();
 
