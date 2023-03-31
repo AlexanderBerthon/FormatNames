@@ -1,11 +1,26 @@
 namespace FormatNames {
+    //works on..
     /*
-    NOTE: 
-    This program only works on .txt files (as far as I know)
-    if you select a file that isn't a .txt file it will 100% corrupt the file
-    :)
-    I should probably prevent this from happening.. BUT that functionality might be handy?
+    .txt
+    .torrent
+    .diz
+    .sfm
+    .theme
+    .stp
+    .air
+    .ies
+    .srt
+    .m3u8
+    .m3u
+    .pls
+    .reg
+    .xml
+    .bat
+
+    does it need to though? Out of scope? Just force .txt files to modify and they can always just copy paste
+    the data back into whatever file they are working
     */
+
     public partial class Form1 : Form {
         private OpenFileDialog openfiledialog1;
         string path;
@@ -78,3 +93,16 @@ namespace FormatNames {
         }
     }
 }
+
+/*
+improvement / ideas
+add option to select target format
+ - only 1 option can be selected, so it needs to be a drop down selection UI element
+firstname lastname --> lastname, firstname
+lastname, firstname --> firstname lastname
+firstname lastname --> firstname.lastname@email.com
+ - make a text box visible if this option is selected so user can specify the domain to add @____
+
+add a preview label that presents an example for each option when selected
+
+*/
