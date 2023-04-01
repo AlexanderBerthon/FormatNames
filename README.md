@@ -9,3 +9,9 @@ ie.
 - etc.
 
 I want this program to make it consistent so I can sort it / check for duplicates / etc. 
+
+Program will convert to the following target formats. 
+ - firstname lastname
+ - lastname, firstname
+ - firstname.lastname@userspecifiedemail.com
+ 
