@@ -26,9 +26,9 @@
             this.fileName_TextBox = new System.Windows.Forms.TextBox();
             this.selectFile_Button = new System.Windows.Forms.Button();
             this.format_Button = new System.Windows.Forms.Button();
-            this.format1_RadioButton = new System.Windows.Forms.RadioButton();
-            this.format2_RadioButton = new System.Windows.Forms.RadioButton();
-            this.format3_RadioButton = new System.Windows.Forms.RadioButton();
+            this.firstLastFormat1_RadioButton = new System.Windows.Forms.RadioButton();
+            this.lastFirstFormat_RadioButton = new System.Windows.Forms.RadioButton();
+            this.emailFormat_RadioButton = new System.Windows.Forms.RadioButton();
             this.selectTarget_Label = new System.Windows.Forms.Label();
             this.emailDomain_Textbox = new System.Windows.Forms.TextBox();
             this.errorMessage_Label = new System.Windows.Forms.Label();
@@ -64,38 +64,39 @@
             this.format_Button.UseVisualStyleBackColor = true;
             this.format_Button.Click += new System.EventHandler(this.format_Button_Click);
             // 
-            // format1_RadioButton
+            // firstLastFormat1_RadioButton
             // 
-            this.format1_RadioButton.AutoSize = true;
-            this.format1_RadioButton.Location = new System.Drawing.Point(19, 105);
-            this.format1_RadioButton.Name = "format1_RadioButton";
-            this.format1_RadioButton.Size = new System.Drawing.Size(131, 19);
-            this.format1_RadioButton.TabIndex = 4;
-            this.format1_RadioButton.TabStop = true;
-            this.format1_RadioButton.Text = "Firstname Lastname";
-            this.format1_RadioButton.UseVisualStyleBackColor = true;
+            this.firstLastFormat1_RadioButton.AutoSize = true;
+            this.firstLastFormat1_RadioButton.Location = new System.Drawing.Point(19, 105);
+            this.firstLastFormat1_RadioButton.Name = "firstLastFormat1_RadioButton";
+            this.firstLastFormat1_RadioButton.Size = new System.Drawing.Size(131, 19);
+            this.firstLastFormat1_RadioButton.TabIndex = 4;
+            this.firstLastFormat1_RadioButton.TabStop = true;
+            this.firstLastFormat1_RadioButton.Text = "Firstname Lastname";
+            this.firstLastFormat1_RadioButton.UseVisualStyleBackColor = true;
             // 
-            // format2_RadioButton
+            // lastFirstFormat_RadioButton
             // 
-            this.format2_RadioButton.AutoSize = true;
-            this.format2_RadioButton.Location = new System.Drawing.Point(19, 130);
-            this.format2_RadioButton.Name = "format2_RadioButton";
-            this.format2_RadioButton.Size = new System.Drawing.Size(134, 19);
-            this.format2_RadioButton.TabIndex = 5;
-            this.format2_RadioButton.TabStop = true;
-            this.format2_RadioButton.Text = "Lastname, Firstname";
-            this.format2_RadioButton.UseVisualStyleBackColor = true;
+            this.lastFirstFormat_RadioButton.AutoSize = true;
+            this.lastFirstFormat_RadioButton.Location = new System.Drawing.Point(19, 130);
+            this.lastFirstFormat_RadioButton.Name = "lastFirstFormat_RadioButton";
+            this.lastFirstFormat_RadioButton.Size = new System.Drawing.Size(134, 19);
+            this.lastFirstFormat_RadioButton.TabIndex = 5;
+            this.lastFirstFormat_RadioButton.TabStop = true;
+            this.lastFirstFormat_RadioButton.Text = "Lastname, Firstname";
+            this.lastFirstFormat_RadioButton.UseVisualStyleBackColor = true;
             // 
-            // format3_RadioButton
+            // emailFormat_RadioButton
             // 
-            this.format3_RadioButton.AutoSize = true;
-            this.format3_RadioButton.Location = new System.Drawing.Point(19, 155);
-            this.format3_RadioButton.Name = "format3_RadioButton";
-            this.format3_RadioButton.Size = new System.Drawing.Size(138, 19);
-            this.format3_RadioButton.TabIndex = 6;
-            this.format3_RadioButton.TabStop = true;
-            this.format3_RadioButton.Text = "First.Last@email.com";
-            this.format3_RadioButton.UseVisualStyleBackColor = true;
+            this.emailFormat_RadioButton.AutoSize = true;
+            this.emailFormat_RadioButton.Location = new System.Drawing.Point(19, 155);
+            this.emailFormat_RadioButton.Name = "emailFormat_RadioButton";
+            this.emailFormat_RadioButton.Size = new System.Drawing.Size(138, 19);
+            this.emailFormat_RadioButton.TabIndex = 6;
+            this.emailFormat_RadioButton.TabStop = true;
+            this.emailFormat_RadioButton.Text = "First.Last@email.com";
+            this.emailFormat_RadioButton.UseVisualStyleBackColor = true;
+            this.emailFormat_RadioButton.CheckedChanged += new System.EventHandler(this.emailFormat_RadioButton_CheckedChanged);
             // 
             // selectTarget_Label
             // 
@@ -135,9 +136,9 @@
             this.Controls.Add(this.errorMessage_Label);
             this.Controls.Add(this.emailDomain_Textbox);
             this.Controls.Add(this.selectTarget_Label);
-            this.Controls.Add(this.format3_RadioButton);
-            this.Controls.Add(this.format2_RadioButton);
-            this.Controls.Add(this.format1_RadioButton);
+            this.Controls.Add(this.emailFormat_RadioButton);
+            this.Controls.Add(this.lastFirstFormat_RadioButton);
+            this.Controls.Add(this.firstLastFormat1_RadioButton);
             this.Controls.Add(this.format_Button);
             this.Controls.Add(this.selectFile_Button);
             this.Controls.Add(this.fileName_TextBox);
@@ -152,9 +153,9 @@
         private TextBox fileName_TextBox;
         private Button selectFile_Button;
         private Button format_Button;
-        private RadioButton format1_RadioButton;
-        private RadioButton format2_RadioButton;
-        private RadioButton format3_RadioButton;
+        private RadioButton firstLastFormat1_RadioButton;
+        private RadioButton lastFirstFormat_RadioButton;
+        private RadioButton emailFormat_RadioButton;
         private Label selectTarget_Label;
         private TextBox emailDomain_Textbox;
         private Label errorMessage_Label;

@@ -41,37 +41,122 @@ namespace FormatNames {
         }
 
         private void format_Button_Click(object sender, EventArgs e) {
-            formatFile(path);
+            if (firstLastFormat1_RadioButton.Checked) {
+                formatFile(path, 0);
+            }
+            else if (lastFirstFormat_RadioButton.Checked) {
+                formatFile(path, 1);
+            }
+            else if (emailFormat_RadioButton.Checked) {
+                if (emailFormat_RadioButton.Text.Contains(".")) {
+                    formatFile(path, 2);
+                    //probably need to write a regex for this
+                    //match pattern, min 2 char before . and 2 char after . and . must be included
+                    //xx.xx
+                }
+                else {
+                    errorMessage_Label.Visible = true;
+                    errorMessage_Label.Text = "Error: Invalid Email Domain";
+                }
+            }
+            else {
+                errorMessage_Label.Visible = true;
+                errorMessage_Label.Text = "Error: Select a Target Format";
+            }
         }
 
-        private void formatFile(String path) {
+        private void formatFile(String path, int target) {
             List<string> correctFormat = new List<string>(); 
             List<string> incorrectFormat = new List<string>();
 
             if (File.Exists(path) && path.Contains(".txt")) {
-                using (StreamReader sr = File.OpenText(path)) {
-                    string inputLine;
-                    while ((inputLine = sr.ReadLine()) != null) {
-                        if (inputLine.Contains(",")) {
-                            incorrectFormat.AddRange(inputLine.Split(",", StringSplitOptions.TrimEntries));
+                if (target == 0) {
+                    using (StreamReader sr = File.OpenText(path)) {
+                        string inputLine;
+                        while ((inputLine = sr.ReadLine()) != null) {
+                            if (inputLine.Contains(",")) {
+                                incorrectFormat.AddRange(inputLine.Split(",", StringSplitOptions.TrimEntries));
+                            }
+                            else {
+                                correctFormat.Add(inputLine);
+                            }
                         }
-                        else {
-                            correctFormat.Add(inputLine);
+                    }
+
+                    for (int i = 1; i < incorrectFormat.Count; i += 2) {
+                        correctFormat.Add(incorrectFormat[i] + " " + incorrectFormat[i - 1]);
+                    }
+
+                    File.WriteAllLines(path, correctFormat);
+                    using (StreamWriter sw = File.CreateText(path)) {
+                        foreach (string s in correctFormat) {
+                            sw.WriteLine(s);
+                        }
+                    }
+                }
+                else if (target == 1) {
+                    using (StreamReader sr = File.OpenText(path)) {
+                        string inputLine;
+                        while ((inputLine = sr.ReadLine()) != null) {
+                            if (inputLine.Contains(",")) {
+                                correctFormat.Add(inputLine);
+                            }
+                            else {
+                                incorrectFormat.AddRange(inputLine.Split(" ", StringSplitOptions.TrimEntries));
+                            }
+                        }
+                    }
+
+                    for (int i = 0; i < incorrectFormat.Count; i += 2) {
+                        correctFormat.Add(incorrectFormat[i + 1] + ", " + incorrectFormat[i]);
+                    }
+
+                    File.WriteAllLines(path, correctFormat);
+                    using (StreamWriter sw = File.CreateText(path)) {
+                        foreach (string s in correctFormat) {
+                            sw.WriteLine(s);
+                        }
+                    }
+                }
+                else if (target == 2) {
+                    //first read doc and separate first last from last, first
+                    using (StreamReader sr = File.OpenText(path)) {
+                        string inputLine;
+                        while ((inputLine = sr.ReadLine()) != null) {
+                            if (inputLine.Contains(",")) {
+                                incorrectFormat.AddRange(inputLine.Split(",", StringSplitOptions.TrimEntries));
+                            }
+                            else {
+                                correctFormat.Add(inputLine);
+                            }
+                        }
+                    }
+
+                    for (int i = 1; i < incorrectFormat.Count; i += 2) {
+                        correctFormat.Add(incorrectFormat[i] + " " + incorrectFormat[i - 1]);
+                    }
+
+                    incorrectFormat.Clear();
+
+                    //now all names are formatted the same; first last
+                    //break names apart again
+                    foreach (string s in correctFormat) {
+                        incorrectFormat.AddRange(s.Split(" "));
+                    }
+
+                    //format names into target format
+                    for (int i = 0; i < incorrectFormat.Count; i += 2) {
+                        correctFormat.Add(incorrectFormat[i] + "." + incorrectFormat[i+1] + emailDomain_Textbox.Text);
+                    }
+
+                    File.WriteAllLines(path, correctFormat);
+                    using (StreamWriter sw = File.CreateText(path)) {
+                        foreach (string s in correctFormat) {
+                            sw.WriteLine(s);
                         }
                     }
                 }
                 fileName_TextBox.BackColor = Color.LimeGreen;
-
-                for (int i = 1; i < incorrectFormat.Count; i += 2) {
-                    correctFormat.Add(incorrectFormat[i] + " " + incorrectFormat[i - 1]);
-                }
-
-                File.WriteAllLines(path, correctFormat);
-                using (StreamWriter sw = File.CreateText(path)) {
-                    foreach (string s in correctFormat) {
-                        sw.WriteLine(s);
-                    }
-                }
             }
             else if (File.Exists(path)) {
                 Console.Error.WriteLine("Error: Invalid file type");
@@ -84,11 +169,21 @@ namespace FormatNames {
                 fileName_TextBox.BackColor = Color.Firebrick;
                 fileName_TextBox.ForeColor = Color.White;
                 if (path == "") {
-                    fileName_TextBox.Text = "Error: Select a file first";
+                    errorMessage_Label.Text = "Error: Select a file first";
                 }
                 else {
-                    fileName_TextBox.Text = "Error: Bad file path";
+                    errorMessage_Label.Text = "Error: Bad file path";
                 }
+            }
+        }
+
+        private void emailFormat_RadioButton_CheckedChanged(object sender, EventArgs e) {
+            if (emailFormat_RadioButton.Checked) {
+                emailDomain_Textbox.Visible = true;
+            }
+            else {
+                emailDomain_Textbox.Visible = false;
+                emailDomain_Textbox.Text = "";
             }
         }
     }
