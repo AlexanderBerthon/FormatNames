@@ -19,6 +19,27 @@ namespace FormatNames {
 
     does it need to though? Out of scope? Just force .txt files to modify and they can always just copy paste
     the data back into whatever file they are working
+
+    BUGS
+    middle names break the program.
+    can go from..
+    first last
+    last, first
+    to..
+    first last
+    first last
+    first last
+    no issue with middle name
+    because , is the delimeter 
+    and last, first m. works that way since it splits like this
+    [last, first m., last, first m.] etc. 
+    but when it is reversed
+    first m. last --> last, first
+
+    so I need a test case, bingo.
+    if line.contains(".") then split "." 
+    else split " "
+
     */
 
     public partial class Form1 : Form {
@@ -101,15 +122,21 @@ namespace FormatNames {
                             if (inputLine.Contains(",")) {
                                 correctFormat.Add(inputLine);
                             }
+                            else if (inputLine.Contains(".")) {
+                                incorrectFormat.AddRange(inputLine.Split(".", StringSplitOptions.TrimEntries));
+                            }
                             else {
                                 incorrectFormat.AddRange(inputLine.Split(" ", StringSplitOptions.TrimEntries));
-                            }
+                            }    
                         }
                     }
-
+                    fileName_TextBox.Text = "";
+                    fileName_TextBox.Text = incorrectFormat.Count.ToString();
+                    
                     for (int i = 0; i < incorrectFormat.Count; i += 2) {
                         correctFormat.Add(incorrectFormat[i + 1] + ", " + incorrectFormat[i]);
                     }
+                    
 
                     File.WriteAllLines(path, correctFormat);
                     using (StreamWriter sw = File.CreateText(path)) {
