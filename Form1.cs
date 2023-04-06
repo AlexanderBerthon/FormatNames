@@ -62,6 +62,8 @@ namespace FormatNames {
         }
 
         private void format_Button_Click(object sender, EventArgs e) {
+            fixBadData(path);
+
             if (firstLastFormat1_RadioButton.Checked) {
                 formatFile(path, 0);
             }
@@ -89,101 +91,169 @@ namespace FormatNames {
         private void formatFile(String path, int target) {
             List<string> correctFormat = new List<string>(); 
             List<string> incorrectFormat = new List<string>();
+            if (target == 0) {
+                using (StreamReader sr = File.OpenText(path)) {
+                    string inputLine;
+                    while ((inputLine = sr.ReadLine()) != null) {
+                        if (inputLine.Contains(",")) {
+                            incorrectFormat.AddRange(inputLine.Split(",", StringSplitOptions.TrimEntries));
+                        }
+                        else {
+                            correctFormat.Add(inputLine);
+                        }
+                    }
+                }
+
+                for (int i = 1; i < incorrectFormat.Count; i += 2) {
+                    correctFormat.Add(incorrectFormat[i] + " " + incorrectFormat[i - 1]);
+                }
+
+                File.WriteAllLines(path, correctFormat);
+                using (StreamWriter sw = File.CreateText(path)) {
+                    foreach (string s in correctFormat) {
+                        sw.WriteLine(s);
+                    }
+                }
+            }
+            else if (target == 1) {
+                using (StreamReader sr = File.OpenText(path)) {
+                    string inputLine;
+                    while ((inputLine = sr.ReadLine()) != null) {
+                        if (inputLine.Contains(",")) {
+                            correctFormat.Add(inputLine);
+                        }
+                        else if (inputLine.Contains(".")) {
+                            incorrectFormat.AddRange(inputLine.Split(".", StringSplitOptions.TrimEntries));
+                        }
+                        else {
+                            incorrectFormat.AddRange(inputLine.Split(" ", StringSplitOptions.TrimEntries));
+                        }    
+                    }
+                }
+                fileName_TextBox.Text = "";
+                fileName_TextBox.Text = incorrectFormat.Count.ToString();
+                    
+                for (int i = 0; i < incorrectFormat.Count; i += 2) {
+                    correctFormat.Add(incorrectFormat[i + 1] + ", " + incorrectFormat[i]);
+                }
+                    
+
+                File.WriteAllLines(path, correctFormat);
+                using (StreamWriter sw = File.CreateText(path)) {
+                    foreach (string s in correctFormat) {
+                        sw.WriteLine(s);
+                    }
+                }
+            }
+            else if (target == 2) {
+                //first read doc and separate first last from last, first
+                using (StreamReader sr = File.OpenText(path)) {
+                    string inputLine;
+                    while ((inputLine = sr.ReadLine()) != null) {
+                        if (inputLine.Contains(",")) {
+                            incorrectFormat.AddRange(inputLine.Split(",", StringSplitOptions.TrimEntries));
+                        }
+                        else {
+                            correctFormat.Add(inputLine);
+                        }
+                    }
+                }
+
+                for (int i = 1; i < incorrectFormat.Count; i += 2) {
+                    correctFormat.Add(incorrectFormat[i] + " " + incorrectFormat[i - 1]);
+                }
+
+                incorrectFormat.Clear();
+
+                //now all names are formatted the same; first last
+                //break names apart again
+                foreach (string s in correctFormat) {
+                    incorrectFormat.AddRange(s.Split(" "));
+                }
+
+                //format names into target format
+                for (int i = 0; i < incorrectFormat.Count; i += 2) {
+                    correctFormat.Add(incorrectFormat[i] + "." + incorrectFormat[i+1] + emailDomain_Textbox.Text);
+                }
+
+                File.WriteAllLines(path, correctFormat);
+                using (StreamWriter sw = File.CreateText(path)) {
+                    foreach (string s in correctFormat) {
+                        sw.WriteLine(s);
+                    }
+                }
+            }
+            fileName_TextBox.BackColor = Color.LimeGreen;
+        }
+
+        private void fixBadData(String path) {
+            List<string> correctFormat = new List<string>();
+            List<string> incorrectFormat = new List<string>();
 
             if (File.Exists(path) && path.Contains(".txt")) {
-                if (target == 0) {
-                    using (StreamReader sr = File.OpenText(path)) {
-                        string inputLine;
-                        while ((inputLine = sr.ReadLine()) != null) {
-                            if (inputLine.Contains(",")) {
-                                incorrectFormat.AddRange(inputLine.Split(",", StringSplitOptions.TrimEntries));
+                using (StreamReader sr = File.OpenText(path)) {
+                    string inputLine;
+                    while ((inputLine = sr.ReadLine()) != null) {
+                        if (inputLine.Contains(" ")) {
+                            int count = 0;
+                            foreach (char c in inputLine) {
+                                if (c == ' ') {
+                                    count++;
+                                }
                             }
-                            else {
-                                correctFormat.Add(inputLine);
-                            }
-                        }
-                    }
-
-                    for (int i = 1; i < incorrectFormat.Count; i += 2) {
-                        correctFormat.Add(incorrectFormat[i] + " " + incorrectFormat[i - 1]);
-                    }
-
-                    File.WriteAllLines(path, correctFormat);
-                    using (StreamWriter sw = File.CreateText(path)) {
-                        foreach (string s in correctFormat) {
-                            sw.WriteLine(s);
-                        }
-                    }
-                }
-                else if (target == 1) {
-                    using (StreamReader sr = File.OpenText(path)) {
-                        string inputLine;
-                        while ((inputLine = sr.ReadLine()) != null) {
-                            if (inputLine.Contains(",")) {
-                                correctFormat.Add(inputLine);
-                            }
-                            else if (inputLine.Contains(".")) {
-                                incorrectFormat.AddRange(inputLine.Split(".", StringSplitOptions.TrimEntries));
-                            }
-                            else {
+                            if (count == 2) {
+                                //first m. last
+                                //first middle last
                                 incorrectFormat.AddRange(inputLine.Split(" ", StringSplitOptions.TrimEntries));
-                            }    
-                        }
-                    }
-                    fileName_TextBox.Text = "";
-                    fileName_TextBox.Text = incorrectFormat.Count.ToString();
-                    
-                    for (int i = 0; i < incorrectFormat.Count; i += 2) {
-                        correctFormat.Add(incorrectFormat[i + 1] + ", " + incorrectFormat[i]);
-                    }
-                    
-
-                    File.WriteAllLines(path, correctFormat);
-                    using (StreamWriter sw = File.CreateText(path)) {
-                        foreach (string s in correctFormat) {
-                            sw.WriteLine(s);
-                        }
-                    }
-                }
-                else if (target == 2) {
-                    //first read doc and separate first last from last, first
-                    using (StreamReader sr = File.OpenText(path)) {
-                        string inputLine;
-                        while ((inputLine = sr.ReadLine()) != null) {
-                            if (inputLine.Contains(",")) {
-                                incorrectFormat.AddRange(inputLine.Split(",", StringSplitOptions.TrimEntries));
+                            }
+                            else if (count > 2) {
+                                //delete
                             }
                             else {
                                 correctFormat.Add(inputLine);
                             }
                         }
                     }
+                }
 
-                    for (int i = 1; i < incorrectFormat.Count; i += 2) {
-                        correctFormat.Add(incorrectFormat[i] + " " + incorrectFormat[i - 1]);
+                ///Everything above this is good
+                ///now just need to fix the data
+                ///before feeding it back in and replacing the data in the file
+                ///
+                ///turn [first, m., last]    --> [first m. last, ..., ...]
+                ///turn [first, m, last]     --> [first m. last, ..., ...]
+                ///turn [first, middle, last --> [first m. last, ..., ...]
+                ///
+                ///last, first will be passed through already
+                ///first last will be passed through already
+                ///
+                
+                //first loop fixes all middle name fields
+                for (int i = 1; i < incorrectFormat.Count; i += 3) {
+                    if (incorrectFormat[i].Count() == 2 && incorrectFormat[i].Contains(".")) {
+                        //do nothing
                     }
-
-                    incorrectFormat.Clear();
-
-                    //now all names are formatted the same; first last
-                    //break names apart again
-                    foreach (string s in correctFormat) {
-                        incorrectFormat.AddRange(s.Split(" "));
+                    else if (incorrectFormat[i].Count() == 1) {
+                        string format = incorrectFormat[i] + ".";
+                        incorrectFormat[i] = format;
                     }
-
-                    //format names into target format
-                    for (int i = 0; i < incorrectFormat.Count; i += 2) {
-                        correctFormat.Add(incorrectFormat[i] + "." + incorrectFormat[i+1] + emailDomain_Textbox.Text);
-                    }
-
-                    File.WriteAllLines(path, correctFormat);
-                    using (StreamWriter sw = File.CreateText(path)) {
-                        foreach (string s in correctFormat) {
-                            sw.WriteLine(s);
-                        }
+                    else {
+                        string format = incorrectFormat[i].ElementAt(0) + ".";
+                        incorrectFormat[i] = format;
                     }
                 }
-                fileName_TextBox.BackColor = Color.LimeGreen;
+
+                //second loop sews the three elements into one string
+                for (int i = 0; i < incorrectFormat.Count; i += 3) {
+                    correctFormat.Add(incorrectFormat[i] + " " + incorrectFormat[i + 1] + " " + incorrectFormat[i + 2]);
+                }
+
+                File.WriteAllLines(path, correctFormat);
+                using (StreamWriter sw = File.CreateText(path)) {
+                    foreach (string s in correctFormat) {
+                        sw.WriteLine(s);
+                    }
+                }                
             }
             else if (File.Exists(path)) {
                 Console.Error.WriteLine("Error: Invalid file type");
@@ -218,13 +288,43 @@ namespace FormatNames {
 
 /*
 improvement / ideas
-add option to select target format
- - only 1 option can be selected, so it needs to be a drop down selection UI element
-firstname lastname --> lastname, firstname
-lastname, firstname --> firstname lastname
-firstname lastname --> firstname.lastname@email.com
- - make a text box visible if this option is selected so user can specify the domain to add @____
 
 add a preview label that presents an example for each option when selected
+
+
+firstname m lastname
+
+how do I recognize this case and change it to..
+firstname m. lastname
+
+if
+[readline.trim()].contains(
+
+
+what about full name?
+firstname middlename lastname
+
+lastname, firstname middlename? //no one actually does this format right?
+
+
+ inputLine.Contains(" "){
+                                int f = 0
+                                foreach(char c in inputLine) {
+                                    if(c == " ") {
+                                        f++;
+                                    }
+                                }
+                                if(f == 2) {
+                                    //found
+                                }
+                                else if (f > 2) {
+                                    //delete
+                                }
+                                else {
+                                    //just 1 whitespace
+                                }
+                            }
+
+
 
 */
