@@ -62,8 +62,11 @@ namespace FormatNames {
         }
 
         private void format_Button_Click(object sender, EventArgs e) {
-            fixBadData(path);
+            //fixBadData(path);
+            //check for valid path here first
+            //get rid of "fix bad data function"
 
+            //this switch to control each of the three mega functions
             if (firstLastFormat1_RadioButton.Checked) {
                 formatFile(path, 0);
             }
@@ -88,9 +91,11 @@ namespace FormatNames {
             }
         }
 
-        private void formatFile(String path, int target) {
+        //rewrite this into a monster
+        private void formatFile(String path, double target) {
             List<string> correctFormat = new List<string>(); 
             List<string> incorrectFormat = new List<string>();
+            //first last
             if (target == 0) {
                 using (StreamReader sr = File.OpenText(path)) {
                     string inputLine;
@@ -115,6 +120,7 @@ namespace FormatNames {
                     }
                 }
             }
+            //last, first
             else if (target == 1) {
                 using (StreamReader sr = File.OpenText(path)) {
                     string inputLine;
@@ -145,6 +151,7 @@ namespace FormatNames {
                     }
                 }
             }
+            //email
             else if (target == 2) {
                 //first read doc and separate first last from last, first
                 using (StreamReader sr = File.OpenText(path)) {
@@ -227,6 +234,8 @@ namespace FormatNames {
                 ///last, first will be passed through already
                 ///first last will be passed through already
                 ///
+                ///what about [last, first m] --> []
+                ///
                 
                 //first loop fixes all middle name fields
                 for (int i = 1; i < incorrectFormat.Count; i += 3) {
@@ -248,6 +257,7 @@ namespace FormatNames {
                     correctFormat.Add(incorrectFormat[i] + " " + incorrectFormat[i + 1] + " " + incorrectFormat[i + 2]);
                 }
 
+                //write to file
                 File.WriteAllLines(path, correctFormat);
                 using (StreamWriter sw = File.CreateText(path)) {
                     foreach (string s in correctFormat) {
@@ -283,6 +293,89 @@ namespace FormatNames {
                 emailDomain_Textbox.Text = "";
             }
         }
+
+        private void formatFile(String path, int target) { //change string target into int target when done
+            List<string> correctFormat = new List<string>();
+            List<string> incorrectFormat = new List<string>();
+            using (StreamReader sr = File.OpenText(path)) {
+                string inputLine;
+
+                //its ugly but it should work..
+                while ((inputLine = sr.ReadLine()) != null) {
+                    incorrectFormat.Clear();
+                    incorrectFormat.AddRange(inputLine.Split());
+
+                    if (incorrectFormat.Count() > 3) {
+                        //delete this shit
+                    }
+                    else if (incorrectFormat[0].Contains(",") && incorrectFormat.Count() == 3 && incorrectFormat[2].Contains(".")) {
+                        //lastname, firstname m.
+                        correctFormat.Add(incorrectFormat[1] + " " + incorrectFormat[2] + " " + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1));
+                    }
+                    else if (incorrectFormat[0].Contains(",") && incorrectFormat.Count() == 3 && incorrectFormat[2].Count() > 1) {
+                        //lastname, firstname middle
+                        correctFormat.Add(incorrectFormat[1] + " " + incorrectFormat[2].ElementAt(0) + ". " + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1));
+                    }
+                    else if (incorrectFormat[0].Contains(",") && incorrectFormat.Count() == 3) {
+                        //lastname, firstname m
+                        correctFormat.Add(incorrectFormat[1] + " " + incorrectFormat[2] + ". " + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1));
+                    }
+                    else if (incorrectFormat[0].Contains(",")) {
+                        //lastname, firstname
+                        correctFormat.Add(incorrectFormat[1] + " " + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1));
+                    }
+                    else if (incorrectFormat.Count() == 3 && incorrectFormat[1].Contains(".")) {
+                        //first m. last
+                        correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1] + " " + incorrectFormat[2]);
+                    }
+                    else if (incorrectFormat.Count() == 3 && incorrectFormat[1].Count() > 1) {
+                        //first middle last
+                        correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1].ElementAt(0) + ". " + incorrectFormat[2]);
+                    }
+                    else if (incorrectFormat.Count() == 3) {
+                        //first m last
+                        correctFormat.Add(incorrectFormat[0]+ " " + incorrectFormat[1]+ ". " + incorrectFormat[2]);
+                    }
+                    else {
+                        //first last
+                        correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1]);
+                    }
+                }
+            }
+
+            File.WriteAllLines(path, correctFormat);
+            using (StreamWriter sw = File.CreateText(path)) {
+                foreach (string s in correctFormat) {
+                    sw.WriteLine(s);
+                }
+            }
+        }
+
+        /*
+        using (StreamReader sr = File.OpenText(path)) {
+                    string inputLine;
+                    while ((inputLine = sr.ReadLine()) != null) {
+                        if (inputLine.Contains(",")) {
+                            incorrectFormat.AddRange(inputLine.Split(",", StringSplitOptions.TrimEntries));
+                        }
+                        else {
+                            correctFormat.Add(inputLine);
+                        }
+                    }
+                }
+
+                for (int i = 1; i < incorrectFormat.Count; i += 2) {
+                    correctFormat.Add(incorrectFormat[i] + " " + incorrectFormat[i - 1]);
+                }
+
+                File.WriteAllLines(path, correctFormat);
+                using (StreamWriter sw = File.CreateText(path)) {
+                    foreach (string s in correctFormat) {
+                        sw.WriteLine(s);
+                    }
+                }
+
+        */
     }
 }
 
@@ -292,39 +385,37 @@ improvement / ideas
 add a preview label that presents an example for each option when selected
 
 
-firstname m lastname
+BUGS
+1.
+with middle name conversion
+program will work on the first go around
+change all data to match this format: first m. last
+but
+when converting to last, first format. data loss occurs
+changes it to..
 
-how do I recognize this case and change it to..
-firstname m. lastname
+initial input
 
-if
-[readline.trim()].contains(
+firstone middleone lastone
+firsttwo m lasttwo
+firstthree m. lastthree
 
+-> first last
 
-what about full name?
-firstname middlename lastname
+firstone m. lastone
+firsttwo m. lasttwo
+firstthree m. lastthree
 
-lastname, firstname middlename? //no one actually does this format right?
+-> last, first
 
+lastone, firstone m
+lasttwo, firsttwo m
+lastthree, firstthree m
 
- inputLine.Contains(" "){
-                                int f = 0
-                                foreach(char c in inputLine) {
-                                    if(c == " ") {
-                                        f++;
-                                    }
-                                }
-                                if(f == 2) {
-                                    //found
-                                }
-                                else if (f > 2) {
-                                    //delete
-                                }
-                                else {
-                                    //just 1 whitespace
-                                }
-                            }
+--> first last
+data loss
 
-
-
+I think I just need to make sure that the m. maintains the . when converting to last, first
 */
+
+
