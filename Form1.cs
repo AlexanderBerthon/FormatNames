@@ -21,6 +21,11 @@ namespace FormatNames {
 
     does it need to though? Out of scope? Just force .txt files to modify and they can always just copy paste
     the data back into whatever file they are working
+
+
+    TESTING
+    new functionallity works perfectly and data can be formated back and forth without issue
+
     */
 
     public partial class Form1 : Form {
@@ -129,6 +134,7 @@ namespace FormatNames {
                             correctFormat.Add(incorrectFormat[0]+ " " + incorrectFormat[1]+ " " + incorrectFormat[2]);
                         }
                         else if(target == 2){
+                            correctFormat.Add(incorrectFormat[1] + incorrectFormat[2].ToUpper() + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1) + "@" + emailDomain_Textbox.Text);
                         }
                     }
                     //lastname, firstname middle
@@ -140,6 +146,7 @@ namespace FormatNames {
                             correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1] + " " + incorrectFormat[2].ElementAt(0) + ".");
                         }
                         else if (target == 2) {
+                            correctFormat.Add(incorrectFormat[1] + incorrectFormat[2].ToUpper().ElementAt(0) + "." + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1) + "@" + emailDomain_Textbox.Text);
                         }
                     }
                     //lastname, firstname m
@@ -149,9 +156,9 @@ namespace FormatNames {
                         }
                         else if (target == 1) {
                             correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1] + " " + incorrectFormat[2] + ".");
-
                         }
                         else if (target == 2) {
+                            correctFormat.Add(incorrectFormat[1] + incorrectFormat[2].ToUpper() + "." + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1) + "@" + emailDomain_Textbox.Text);
                         }
                     }
                     //lastname, firstname
@@ -163,6 +170,7 @@ namespace FormatNames {
                             correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1]);
                         }
                         else if (target == 2) {
+                            correctFormat.Add(incorrectFormat[1] + "." + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1) + "@" + emailDomain_Textbox.Text);
                         }
                     }
                     //first m. last
@@ -174,6 +182,7 @@ namespace FormatNames {
                             correctFormat.Add(incorrectFormat[2] + ", " + incorrectFormat[0] + " " + incorrectFormat[1]);
                         }
                         else if (target == 2) {
+                            correctFormat.Add(incorrectFormat[0] + incorrectFormat[1].ToUpper() + incorrectFormat[2] + "@" + emailDomain_Textbox.Text);
                         }
                     }
                     //first middle last
@@ -185,6 +194,7 @@ namespace FormatNames {
                             correctFormat.Add(incorrectFormat[2] + ", " + incorrectFormat[0] + " " + incorrectFormat[1].ElementAt(0) + ".");
                         }
                         else if (target == 2) {
+                            correctFormat.Add(incorrectFormat[0] + incorrectFormat[1].ToUpper().ElementAt(0) + "." + incorrectFormat[2] + "@" + emailDomain_Textbox.Text);
                         }
                     }
                     //first m last
@@ -196,6 +206,7 @@ namespace FormatNames {
                             correctFormat.Add(incorrectFormat[2] + ", " + incorrectFormat[0] + " " + incorrectFormat[1] + ".");
                         }
                         else if (target == 2) {
+                            correctFormat.Add(incorrectFormat[0] + incorrectFormat[1].ToUpper() + "." + incorrectFormat[2] + "@" + emailDomain_Textbox.Text);
                         }
                     }
                     //first last
@@ -207,6 +218,7 @@ namespace FormatNames {
                             correctFormat.Add(incorrectFormat[1] + ", " + incorrectFormat[0]);
                         }
                         else if (target == 2) {
+                            correctFormat.Add(incorrectFormat[0] + "." + incorrectFormat[1] + "@" + emailDomain_Textbox.Text);
                         }
                     }
                 }
