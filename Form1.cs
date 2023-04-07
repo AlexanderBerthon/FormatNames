@@ -1,3 +1,5 @@
+using System.CodeDom;
+
 namespace FormatNames {
     //works on..
     /*
@@ -124,6 +126,7 @@ namespace FormatNames {
                             correctFormat.Add(incorrectFormat[1] + " " + incorrectFormat[2] + " " + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1));
                         }
                         else if(target == 1){
+                            correctFormat.Add(incorrectFormat[0]+ " " + incorrectFormat[1]+ " " + incorrectFormat[2]);
                         }
                         else if(target == 2){
                         }
@@ -134,6 +137,7 @@ namespace FormatNames {
                             correctFormat.Add(incorrectFormat[1] + " " + incorrectFormat[2].ElementAt(0) + ". " + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1));
                         }
                         else if (target == 1) {
+                            correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1] + " " + incorrectFormat[2].ElementAt(0) + ".");
                         }
                         else if (target == 2) {
                         }
@@ -144,6 +148,8 @@ namespace FormatNames {
                             correctFormat.Add(incorrectFormat[1] + " " + incorrectFormat[2] + ". " + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1));
                         }
                         else if (target == 1) {
+                            correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1] + " " + incorrectFormat[2] + ".");
+
                         }
                         else if (target == 2) {
                         }
@@ -154,6 +160,7 @@ namespace FormatNames {
                             correctFormat.Add(incorrectFormat[1] + " " + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1));
                         }
                         else if (target == 1) {
+                            correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1]);
                         }
                         else if (target == 2) {
                         }
@@ -164,6 +171,7 @@ namespace FormatNames {
                             correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1] + " " + incorrectFormat[2]);
                         }
                         else if (target == 1) {
+                            correctFormat.Add(incorrectFormat[2] + ", " + incorrectFormat[0] + " " + incorrectFormat[1]);
                         }
                         else if (target == 2) {
                         }
@@ -174,6 +182,7 @@ namespace FormatNames {
                             correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1].ElementAt(0) + ". " + incorrectFormat[2]);
                         }
                         else if (target == 1) {
+                            correctFormat.Add(incorrectFormat[2] + ", " + incorrectFormat[0] + " " + incorrectFormat[1].ElementAt(0) + ".");
                         }
                         else if (target == 2) {
                         }
@@ -184,6 +193,7 @@ namespace FormatNames {
                             correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1] + ". " + incorrectFormat[2]);
                         }
                         else if (target == 1) {
+                            correctFormat.Add(incorrectFormat[2] + ", " + incorrectFormat[0] + " " + incorrectFormat[1] + ".");
                         }
                         else if (target == 2) {
                         }
@@ -194,6 +204,7 @@ namespace FormatNames {
                             correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1]);
                         }
                         else if (target == 1) {
+                            correctFormat.Add(incorrectFormat[1] + ", " + incorrectFormat[0]);
                         }
                         else if (target == 2) {
                         }
