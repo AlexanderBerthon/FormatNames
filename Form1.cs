@@ -121,9 +121,11 @@ namespace FormatNames {
                 while ((inputLine = sr.ReadLine()) != null) {
                     incorrectFormat.Clear();
                     incorrectFormat.AddRange(inputLine.Split());
-
-                    if (incorrectFormat.Count() > 3) {
-                        //delete this shit
+                    if (inputLine.Contains("@")) {
+                        //delete bad data
+                    }
+                    else if (incorrectFormat.Count() > 3) {
+                        //delete bad data
                     }
                     //lastname, firstname m.
                     else if (incorrectFormat[0].Contains(",") && incorrectFormat.Count() == 3 && incorrectFormat[2].Contains(".")) {
@@ -241,4 +243,12 @@ namespace FormatNames {
 improvement / ideas
 
 add a preview label that presents an example for each option when selected
+
+more format options
+can be a second set of options? As this doesn't really affect the format at all just capitalization?
+ - all lowercase
+ - all caps (regardless of the format)
+ - convert to gramatically correct //normal/undo the above options
+    - how to achieve this across different formats? 
+    - probably have to loop the entire list, break by whitespace, and capitalze first entry, then sew back together and writeline
 */
