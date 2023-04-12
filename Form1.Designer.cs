@@ -129,6 +129,7 @@
             this.emailDomain_Textbox.Size = new System.Drawing.Size(160, 23);
             this.emailDomain_Textbox.TabIndex = 8;
             this.emailDomain_Textbox.Visible = false;
+            this.emailDomain_Textbox.TextChanged += new System.EventHandler(this.emailDomain_Textbox_TextChanged);
             // 
             // consoleMessage_Label
             // 
