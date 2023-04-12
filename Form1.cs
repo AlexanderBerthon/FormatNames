@@ -65,13 +65,19 @@ namespace FormatNames {
                         //xx.xx
                     }
                     else {
+                        consoleTitle_Label.ForeColor = Color.Red;
+                        consoleTitle_Label.Text = "Error: ";
+
                         consoleMessage_Label.ForeColor = Color.Red;
-                        consoleMessage_Label.Text = "Error: Invalid Email Domain";
+                        consoleMessage_Label.Text = "Invalid Email Domain";
                     }
                 }
                 else {
+                    consoleTitle_Label.ForeColor = Color.Red;
+                    consoleTitle_Label.Text = "Error: ";
+
                     consoleMessage_Label.ForeColor = Color.Red;
-                    consoleMessage_Label.Text = "Error: Select a Target Format";
+                    consoleMessage_Label.Text = "Select a Target Format";
                 }
 
                 //separate code to format capitalization here?
@@ -85,22 +91,25 @@ namespace FormatNames {
                 status = true;
             }
             else if (File.Exists(path)) {
-                Console.Error.WriteLine("Error: Invalid file type");
-                fileName_TextBox.Text = "Error: Invalid file type";
+                consoleTitle_Label.ForeColor = Color.Red;
+                consoleTitle_Label.Text = "Error: ";
+                consoleMessage_Label.ForeColor = Color.Red;
+                consoleMessage_Label.Text = "Select a .txt file";
+                fileName_TextBox.Text = "Invalid file type";
                 fileName_TextBox.BackColor = Color.Firebrick;
                 fileName_TextBox.ForeColor = Color.White;
             }
             else {
-                Console.Error.WriteLine("File Path Error");
+                consoleTitle_Label.ForeColor = Color.Red;
+                consoleTitle_Label.Text = "Error: ";
                 fileName_TextBox.BackColor = Color.Firebrick;
                 fileName_TextBox.ForeColor = Color.White;
+                consoleMessage_Label.ForeColor = Color.Red;
                 if (path == "") {
-                    consoleMessage_Label.ForeColor = Color.Red;
-                    consoleMessage_Label.Text = "Error: Select a file first";
+                    consoleMessage_Label.Text = "Select a file first";
                 }
                 else {
-                    consoleMessage_Label.ForeColor = Color.Red;
-                    consoleMessage_Label.Text = "Error: Bad file path";
+                    consoleMessage_Label.Text = "Bad file path";
                 }
             }
             return status;
@@ -243,6 +252,8 @@ namespace FormatNames {
         }
 
         private void preview() {
+            consoleTitle_Label.ForeColor = Color.Black;
+            consoleTitle_Label.Text = "Preview: ";
             consoleMessage_Label.ForeColor = Color.Black;
 
             if (capitalizedStyle_radioButton.Checked && firstLastFormat_RadioButton.Checked) {
