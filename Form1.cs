@@ -42,7 +42,7 @@ namespace FormatNames {
 
         private void FileSelectButton_Click(object sender, EventArgs e) {
             fileName_TextBox.BackColor = System.Drawing.SystemColors.Control;
-            consoleMessage_Label.Text = "";
+            preview();
 
             if (openfiledialog1.ShowDialog() == DialogResult.OK) {
                 path = openfiledialog1.FileName;
@@ -83,7 +83,7 @@ namespace FormatNames {
                 }
 
                 //separate code to format capitalization here?
-                //
+
             }
         }
 
@@ -242,10 +242,25 @@ namespace FormatNames {
                 }
             }
 
-            File.WriteAllLines(path, correctFormat);
+            //do it here to be more efficient? 
+
+            //File.WriteAllLines(path, correctFormat);
+
             using (StreamWriter sw = File.CreateText(path)) {
-                foreach (string s in correctFormat) {
-                    sw.WriteLine(s);
+                if (capitalizedStyle_radioButton.Checked) {
+                    foreach (string s in correctFormat) {
+                        sw.WriteLine(s.ToUpper());
+                    }
+                }
+                else if (lowercaseStyle_radioButton.Checked) {
+                    foreach (string s in correctFormat) {
+                        sw.WriteLine(s.ToLower());
+                    }
+                }
+                else {
+                    foreach (string s in correctFormat) {
+                        sw.WriteLine(s); //this will need additional work..
+                    }
                 }
             }
 
