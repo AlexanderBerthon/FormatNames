@@ -40,7 +40,7 @@ namespace FormatNames {
 
         private void FileSelectButton_Click(object sender, EventArgs e) {
             fileName_TextBox.BackColor = System.Drawing.SystemColors.Control;
-            errorMessage_Label.Visible = false;
+            consoleMessage_Label.Visible = false;
 
             if (openfiledialog1.ShowDialog() == DialogResult.OK) {
                 path = openfiledialog1.FileName;
@@ -51,7 +51,7 @@ namespace FormatNames {
 
         private void format_Button_Click(object sender, EventArgs e) {
             if (verifyFile(path)) {
-                if (firstLastFormat1_RadioButton.Checked) {
+                if (firstLastFormat_RadioButton.Checked) {
                     formatFile(path, 0);
                 }
                 else if (lastFirstFormat_RadioButton.Checked) {
@@ -65,13 +65,13 @@ namespace FormatNames {
                         //xx.xx
                     }
                     else {
-                        errorMessage_Label.Visible = true;
-                        errorMessage_Label.Text = "Error: Invalid Email Domain";
+                        consoleMessage_Label.Visible = true;
+                        consoleMessage_Label.Text = "Error: Invalid Email Domain";
                     }
                 }
                 else {
-                    errorMessage_Label.Visible = true;
-                    errorMessage_Label.Text = "Error: Select a Target Format";
+                    consoleMessage_Label.Visible = true;
+                    consoleMessage_Label.Text = "Error: Select a Target Format";
                 }
 
                 //separate code to format capitalization here?
@@ -95,12 +95,12 @@ namespace FormatNames {
                 fileName_TextBox.BackColor = Color.Firebrick;
                 fileName_TextBox.ForeColor = Color.White;
                 if (path == "") {
-                    errorMessage_Label.Visible = true;
-                    errorMessage_Label.Text = "Error: Select a file first";
+                    consoleMessage_Label.Visible = true;
+                    consoleMessage_Label.Text = "Error: Select a file first";
                 }
                 else {
-                    errorMessage_Label.Visible = true;
-                    errorMessage_Label.Text = "Error: Bad file path";
+                    consoleMessage_Label.Visible = true;
+                    consoleMessage_Label.Text = "Error: Bad file path";
                 }
             }
             return status;
