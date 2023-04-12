@@ -40,7 +40,7 @@ namespace FormatNames {
 
         private void FileSelectButton_Click(object sender, EventArgs e) {
             fileName_TextBox.BackColor = System.Drawing.SystemColors.Control;
-            consoleMessage_Label.Visible = false;
+            consoleMessage_Label.Text = "";
 
             if (openfiledialog1.ShowDialog() == DialogResult.OK) {
                 path = openfiledialog1.FileName;
@@ -65,12 +65,12 @@ namespace FormatNames {
                         //xx.xx
                     }
                     else {
-                        consoleMessage_Label.Visible = true;
+                        consoleMessage_Label.ForeColor = Color.Red;
                         consoleMessage_Label.Text = "Error: Invalid Email Domain";
                     }
                 }
                 else {
-                    consoleMessage_Label.Visible = true;
+                    consoleMessage_Label.ForeColor = Color.Red;
                     consoleMessage_Label.Text = "Error: Select a Target Format";
                 }
 
@@ -95,11 +95,11 @@ namespace FormatNames {
                 fileName_TextBox.BackColor = Color.Firebrick;
                 fileName_TextBox.ForeColor = Color.White;
                 if (path == "") {
-                    consoleMessage_Label.Visible = true;
+                    consoleMessage_Label.ForeColor = Color.Red;
                     consoleMessage_Label.Text = "Error: Select a file first";
                 }
                 else {
-                    consoleMessage_Label.Visible = true;
+                    consoleMessage_Label.ForeColor = Color.Red;
                     consoleMessage_Label.Text = "Error: Bad file path";
                 }
             }
@@ -137,10 +137,10 @@ namespace FormatNames {
                         if (target == 0) {
                             correctFormat.Add(incorrectFormat[1] + " " + incorrectFormat[2] + " " + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1));
                         }
-                        else if(target == 1){
-                            correctFormat.Add(incorrectFormat[0]+ " " + incorrectFormat[1]+ " " + incorrectFormat[2]);
+                        else if (target == 1) {
+                            correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1] + " " + incorrectFormat[2]);
                         }
-                        else if(target == 2){
+                        else if (target == 2) {
                             correctFormat.Add(incorrectFormat[1] + incorrectFormat[2].ToUpper() + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1) + "@" + emailDomain_Textbox.Text);
                         }
                     }
@@ -241,6 +241,53 @@ namespace FormatNames {
             fileName_TextBox.BackColor = Color.LimeGreen;
 
         }
+
+        private void preview() {
+            consoleMessage_Label.ForeColor = Color.Black;
+
+            if (capitalizedStyle_radioButton.Checked && firstLastFormat_RadioButton.Checked) {
+                consoleMessage_Label.Text = ("FIRSTNAME LASTNAME");
+            }
+            else if (capitalizedStyle_radioButton.Checked && lastFirstFormat_RadioButton.Checked) {
+                consoleMessage_Label.Text = ("LASTNAME, FIRSTNAME");
+            }
+            else if (capitalizedStyle_radioButton.Checked && emailFormat_RadioButton.Checked) {
+                consoleMessage_Label.Text = ("FIRST.LAST@EMAIL.COM");
+            }
+            else if (lowercaseStyle_radioButton.Checked && firstLastFormat_RadioButton.Checked) {
+                consoleMessage_Label.Text = ("firstname lastname");
+            }
+            else if (lowercaseStyle_radioButton.Checked && lastFirstFormat_RadioButton.Checked) {
+                consoleMessage_Label.Text = ("lastname, firstname");
+            }
+            else if (lowercaseStyle_radioButton.Checked && emailFormat_RadioButton.Checked) {
+                consoleMessage_Label.Text = ("first.last@email.com");
+            }
+            else if (standardStyle_radioButton.Checked && firstLastFormat_RadioButton.Checked) {
+                consoleMessage_Label.Text = ("Firstname Lastname");
+            }
+            else if (standardStyle_radioButton.Checked && lastFirstFormat_RadioButton.Checked) {
+                consoleMessage_Label.Text = ("Lastname, Firstname");
+            }
+            else if (standardStyle_radioButton.Checked && emailFormat_RadioButton.Checked) {
+                consoleMessage_Label.Text = ("First.Last@email.com");
+            }
+
+        }
+
+        private void radioButton_CheckedChanged(object sender, EventArgs e) {
+            preview();
+
+            if (emailFormat_RadioButton.Checked) {
+                emailDomain_Textbox.Visible = true;
+            }
+            else {
+                emailDomain_Textbox.Visible = false;
+                emailDomain_Textbox.Text = "";
+            }
+
+        }
+
     }
 }
 
