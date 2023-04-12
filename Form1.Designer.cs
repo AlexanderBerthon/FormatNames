@@ -33,8 +33,8 @@
             this.emailDomain_Textbox = new System.Windows.Forms.TextBox();
             this.consoleMessage_Label = new System.Windows.Forms.Label();
             this.selectCaps_Label = new System.Windows.Forms.Label();
-            this.allCapsStyle_radioButton = new System.Windows.Forms.RadioButton();
-            this.allLowerStyle_radioButton = new System.Windows.Forms.RadioButton();
+            this.capitalizedStyle_radioButton = new System.Windows.Forms.RadioButton();
+            this.lowercaseStyle_radioButton = new System.Windows.Forms.RadioButton();
             this.standardStyle_radioButton = new System.Windows.Forms.RadioButton();
             this.captializationStyle_Panel = new System.Windows.Forms.Panel();
             this.targetFormat_Panel = new System.Windows.Forms.Panel();
@@ -82,6 +82,7 @@
             this.firstLastFormat_RadioButton.TabStop = true;
             this.firstLastFormat_RadioButton.Text = "Firstname Lastname";
             this.firstLastFormat_RadioButton.UseVisualStyleBackColor = true;
+            this.firstLastFormat_RadioButton.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
             // lastFirstFormat_RadioButton
             // 
@@ -93,6 +94,7 @@
             this.lastFirstFormat_RadioButton.TabStop = true;
             this.lastFirstFormat_RadioButton.Text = "Lastname, Firstname";
             this.lastFirstFormat_RadioButton.UseVisualStyleBackColor = true;
+            this.lastFirstFormat_RadioButton.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
             // emailFormat_RadioButton
             // 
@@ -104,7 +106,7 @@
             this.emailFormat_RadioButton.TabStop = true;
             this.emailFormat_RadioButton.Text = "First.Last@email.com";
             this.emailFormat_RadioButton.UseVisualStyleBackColor = true;
-            this.emailFormat_RadioButton.CheckedChanged += new System.EventHandler(this.emailFormat_RadioButton_CheckedChanged);
+            this.emailFormat_RadioButton.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
             // selectTarget_Label
             // 
@@ -129,12 +131,12 @@
             // 
             this.consoleMessage_Label.AutoSize = true;
             this.consoleMessage_Label.ForeColor = System.Drawing.Color.Black;
-            this.consoleMessage_Label.Location = new System.Drawing.Point(12, 309);
+            this.consoleMessage_Label.Location = new System.Drawing.Point(0, 310);
+            this.consoleMessage_Label.MinimumSize = new System.Drawing.Size(185, 15);
             this.consoleMessage_Label.Name = "consoleMessage_Label";
-            this.consoleMessage_Label.Size = new System.Drawing.Size(35, 15);
+            this.consoleMessage_Label.Size = new System.Drawing.Size(185, 15);
             this.consoleMessage_Label.TabIndex = 9;
-            this.consoleMessage_Label.Text = "Error:";
-            this.consoleMessage_Label.Visible = false;
+            this.consoleMessage_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // selectCaps_Label
             // 
@@ -146,26 +148,28 @@
             this.selectCaps_Label.TabIndex = 10;
             this.selectCaps_Label.Text = "Select Capitalization Style";
             // 
-            // allCapsStyle_radioButton
+            // capitalizedStyle_radioButton
             // 
-            this.allCapsStyle_radioButton.AutoSize = true;
-            this.allCapsStyle_radioButton.Location = new System.Drawing.Point(10, 21);
-            this.allCapsStyle_radioButton.Name = "allCapsStyle_radioButton";
-            this.allCapsStyle_radioButton.Size = new System.Drawing.Size(70, 19);
-            this.allCapsStyle_radioButton.TabIndex = 11;
-            this.allCapsStyle_radioButton.Text = "CAPITAL";
-            this.allCapsStyle_radioButton.UseVisualStyleBackColor = true;
+            this.capitalizedStyle_radioButton.AutoSize = true;
+            this.capitalizedStyle_radioButton.Location = new System.Drawing.Point(10, 21);
+            this.capitalizedStyle_radioButton.Name = "capitalizedStyle_radioButton";
+            this.capitalizedStyle_radioButton.Size = new System.Drawing.Size(70, 19);
+            this.capitalizedStyle_radioButton.TabIndex = 11;
+            this.capitalizedStyle_radioButton.Text = "CAPITAL";
+            this.capitalizedStyle_radioButton.UseVisualStyleBackColor = true;
+            this.capitalizedStyle_radioButton.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
-            // allLowerStyle_radioButton
+            // lowercaseStyle_radioButton
             // 
-            this.allLowerStyle_radioButton.AutoSize = true;
-            this.allLowerStyle_radioButton.Location = new System.Drawing.Point(10, 46);
-            this.allLowerStyle_radioButton.Name = "allLowerStyle_radioButton";
-            this.allLowerStyle_radioButton.Size = new System.Drawing.Size(77, 19);
-            this.allLowerStyle_radioButton.TabIndex = 12;
-            this.allLowerStyle_radioButton.Text = "lowercase";
-            this.allLowerStyle_radioButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.allLowerStyle_radioButton.UseVisualStyleBackColor = true;
+            this.lowercaseStyle_radioButton.AutoSize = true;
+            this.lowercaseStyle_radioButton.Location = new System.Drawing.Point(10, 46);
+            this.lowercaseStyle_radioButton.Name = "lowercaseStyle_radioButton";
+            this.lowercaseStyle_radioButton.Size = new System.Drawing.Size(77, 19);
+            this.lowercaseStyle_radioButton.TabIndex = 12;
+            this.lowercaseStyle_radioButton.Text = "lowercase";
+            this.lowercaseStyle_radioButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lowercaseStyle_radioButton.UseVisualStyleBackColor = true;
+            this.lowercaseStyle_radioButton.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
             // standardStyle_radioButton
             // 
@@ -178,13 +182,14 @@
             this.standardStyle_radioButton.TabStop = true;
             this.standardStyle_radioButton.Text = "Standard";
             this.standardStyle_radioButton.UseVisualStyleBackColor = true;
+            this.standardStyle_radioButton.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
             // captializationStyle_Panel
             // 
             this.captializationStyle_Panel.Controls.Add(this.selectCaps_Label);
             this.captializationStyle_Panel.Controls.Add(this.standardStyle_radioButton);
-            this.captializationStyle_Panel.Controls.Add(this.allCapsStyle_radioButton);
-            this.captializationStyle_Panel.Controls.Add(this.allLowerStyle_radioButton);
+            this.captializationStyle_Panel.Controls.Add(this.capitalizedStyle_radioButton);
+            this.captializationStyle_Panel.Controls.Add(this.lowercaseStyle_radioButton);
             this.captializationStyle_Panel.Location = new System.Drawing.Point(12, 79);
             this.captializationStyle_Panel.Name = "captializationStyle_Panel";
             this.captializationStyle_Panel.Size = new System.Drawing.Size(160, 100);
@@ -235,8 +240,8 @@
         private TextBox emailDomain_Textbox;
         private Label consoleMessage_Label;
         private Label selectCaps_Label;
-        private RadioButton allCapsStyle_radioButton;
-        private RadioButton allLowerStyle_radioButton;
+        private RadioButton capitalizedStyle_radioButton;
+        private RadioButton lowercaseStyle_radioButton;
         private RadioButton standardStyle_radioButton;
         private Panel captializationStyle_Panel;
         private Panel targetFormat_Panel;
