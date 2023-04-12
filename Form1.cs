@@ -72,6 +72,10 @@ namespace FormatNames {
                 errorMessage_Label.Visible = true;
                 errorMessage_Label.Text = "Error: Select a Target Format";
             }
+
+            //separate code to format capitalization here?
+            //
+
         }
 
         private void verifyFile(String path) {
@@ -105,13 +109,6 @@ namespace FormatNames {
             }
         }
 
-
-        //**********************************************************************************************************************todo*****************************************************
-        //I need to write this same exact thing 2 more times for the other 2 formats
-        //last, first
-        //first.last@email.com
-        //**********************************************************************************************************************todo*****************************************************
-
         private void formatFile(String path, int target) {
             List<string> correctFormat = new List<string>();
             List<string> incorrectFormat = new List<string>();
@@ -120,6 +117,7 @@ namespace FormatNames {
                 //its ugly but it should work..
                 while ((inputLine = sr.ReadLine()) != null) {
                     incorrectFormat.Clear();
+                    inputLine = inputLine.Trim();
                     incorrectFormat.AddRange(inputLine.Split());
                     if (inputLine.Contains("@")) {
                         //delete bad data
@@ -251,4 +249,5 @@ can be a second set of options? As this doesn't really affect the format at all 
  - convert to gramatically correct //normal/undo the above options
     - how to achieve this across different formats? 
     - probably have to loop the entire list, break by whitespace, and capitalze first entry, then sew back together and writeline
+    - it should work regardless of the format though including multiple formats
 */
