@@ -38,8 +38,11 @@
             this.standardStyle_radioButton = new System.Windows.Forms.RadioButton();
             this.captializationStyle_Panel = new System.Windows.Forms.Panel();
             this.targetFormat_Panel = new System.Windows.Forms.Panel();
+            this.console_Panel = new System.Windows.Forms.Panel();
+            this.consoleTitle_Label = new System.Windows.Forms.Label();
             this.captializationStyle_Panel.SuspendLayout();
             this.targetFormat_Panel.SuspendLayout();
+            this.console_Panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // fileName_TextBox
@@ -64,7 +67,7 @@
             // 
             // format_Button
             // 
-            this.format_Button.Location = new System.Drawing.Point(55, 330);
+            this.format_Button.Location = new System.Drawing.Point(55, 360);
             this.format_Button.Name = "format_Button";
             this.format_Button.Size = new System.Drawing.Size(75, 23);
             this.format_Button.TabIndex = 2;
@@ -131,10 +134,10 @@
             // 
             this.consoleMessage_Label.AutoSize = true;
             this.consoleMessage_Label.ForeColor = System.Drawing.Color.Black;
-            this.consoleMessage_Label.Location = new System.Drawing.Point(0, 310);
-            this.consoleMessage_Label.MinimumSize = new System.Drawing.Size(185, 15);
+            this.consoleMessage_Label.Location = new System.Drawing.Point(0, 15);
+            this.consoleMessage_Label.MinimumSize = new System.Drawing.Size(160, 15);
             this.consoleMessage_Label.Name = "consoleMessage_Label";
-            this.consoleMessage_Label.Size = new System.Drawing.Size(185, 15);
+            this.consoleMessage_Label.Size = new System.Drawing.Size(160, 15);
             this.consoleMessage_Label.TabIndex = 9;
             this.consoleMessage_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -190,7 +193,7 @@
             this.captializationStyle_Panel.Controls.Add(this.standardStyle_radioButton);
             this.captializationStyle_Panel.Controls.Add(this.capitalizedStyle_radioButton);
             this.captializationStyle_Panel.Controls.Add(this.lowercaseStyle_radioButton);
-            this.captializationStyle_Panel.Location = new System.Drawing.Point(12, 79);
+            this.captializationStyle_Panel.Location = new System.Drawing.Point(12, 85);
             this.captializationStyle_Panel.Name = "captializationStyle_Panel";
             this.captializationStyle_Panel.Size = new System.Drawing.Size(160, 100);
             this.captializationStyle_Panel.TabIndex = 14;
@@ -202,19 +205,38 @@
             this.targetFormat_Panel.Controls.Add(this.lastFirstFormat_RadioButton);
             this.targetFormat_Panel.Controls.Add(this.emailDomain_Textbox);
             this.targetFormat_Panel.Controls.Add(this.emailFormat_RadioButton);
-            this.targetFormat_Panel.Location = new System.Drawing.Point(12, 185);
+            this.targetFormat_Panel.Location = new System.Drawing.Point(12, 190);
             this.targetFormat_Panel.Name = "targetFormat_Panel";
             this.targetFormat_Panel.Size = new System.Drawing.Size(160, 118);
             this.targetFormat_Panel.TabIndex = 15;
+            // 
+            // console_Panel
+            // 
+            this.console_Panel.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.console_Panel.Controls.Add(this.consoleTitle_Label);
+            this.console_Panel.Controls.Add(this.consoleMessage_Label);
+            this.console_Panel.Location = new System.Drawing.Point(12, 315);
+            this.console_Panel.Name = "console_Panel";
+            this.console_Panel.Size = new System.Drawing.Size(160, 41);
+            this.console_Panel.TabIndex = 16;
+            // 
+            // consoleTitle_Label
+            // 
+            this.consoleTitle_Label.AutoSize = true;
+            this.consoleTitle_Label.Location = new System.Drawing.Point(0, -2);
+            this.consoleTitle_Label.Name = "consoleTitle_Label";
+            this.consoleTitle_Label.Size = new System.Drawing.Size(51, 15);
+            this.consoleTitle_Label.TabIndex = 10;
+            this.consoleTitle_Label.Text = "Preview:";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(184, 361);
+            this.ClientSize = new System.Drawing.Size(184, 391);
+            this.Controls.Add(this.console_Panel);
             this.Controls.Add(this.targetFormat_Panel);
             this.Controls.Add(this.captializationStyle_Panel);
-            this.Controls.Add(this.consoleMessage_Label);
             this.Controls.Add(this.format_Button);
             this.Controls.Add(this.selectFile_Button);
             this.Controls.Add(this.fileName_TextBox);
@@ -223,6 +245,8 @@
             this.captializationStyle_Panel.PerformLayout();
             this.targetFormat_Panel.ResumeLayout(false);
             this.targetFormat_Panel.PerformLayout();
+            this.console_Panel.ResumeLayout(false);
+            this.console_Panel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -245,5 +269,7 @@
         private RadioButton standardStyle_radioButton;
         private Panel captializationStyle_Panel;
         private Panel targetFormat_Panel;
+        private Panel console_Panel;
+        private Label consoleTitle_Label;
     }
 }
