@@ -40,6 +40,8 @@ namespace FormatNames {
 
         private void FileSelectButton_Click(object sender, EventArgs e) {
             fileName_TextBox.BackColor = System.Drawing.SystemColors.Control;
+            consoleMessage_Label.Visible = false;
+
             if (openfiledialog1.ShowDialog() == DialogResult.OK) {
                 path = openfiledialog1.FileName;
                 fileName_TextBox.ForeColor = Color.Black;
@@ -48,38 +50,40 @@ namespace FormatNames {
         }
 
         private void format_Button_Click(object sender, EventArgs e) {
-            verifyFile(path);
-
-            if (firstLastFormat1_RadioButton.Checked) {
-                formatFile(path, 0);
-            }
-            else if (lastFirstFormat_RadioButton.Checked) {
-                formatFile(path, 1);
-            }
-            else if (emailFormat_RadioButton.Checked) {
-                if (emailFormat_RadioButton.Text.Contains(".")) {
-                    formatFile(path, 2);
-                    //probably need to write a regex for this
-                    //match pattern, min 2 char before . and 2 char after . and . must be included
-                    //xx.xx
+            if (verifyFile(path)) {
+                if (firstLastFormat_RadioButton.Checked) {
+                    formatFile(path, 0);
+                }
+                else if (lastFirstFormat_RadioButton.Checked) {
+                    formatFile(path, 1);
+                }
+                else if (emailFormat_RadioButton.Checked) {
+                    if (emailFormat_RadioButton.Text.Contains(".")) {
+                        formatFile(path, 2);
+                        //probably need to write a regex for this
+                        //match pattern, min 2 char before . and 2 char after . and . must be included
+                        //xx.xx
+                    }
+                    else {
+                        consoleMessage_Label.Visible = true;
+                        consoleMessage_Label.Text = "Error: Invalid Email Domain";
+                    }
                 }
                 else {
-                    errorMessage_Label.Visible = true;
-                    errorMessage_Label.Text = "Error: Invalid Email Domain";
+                    consoleMessage_Label.Visible = true;
+                    consoleMessage_Label.Text = "Error: Select a Target Format";
                 }
-            }
-            else {
-                errorMessage_Label.Visible = true;
-                errorMessage_Label.Text = "Error: Select a Target Format";
-            }
 
-            //separate code to format capitalization here?
-            //
-
+                //separate code to format capitalization here?
+                //
+            }
         }
 
-        private void verifyFile(String path) {
-            if (File.Exists(path) && path.Contains(".txt")) {}
+        private Boolean verifyFile(String path) {
+            Boolean status = false;
+            if (File.Exists(path) && path.Contains(".txt")) {
+                status = true;
+            }
             else if (File.Exists(path)) {
                 Console.Error.WriteLine("Error: Invalid file type");
                 fileName_TextBox.Text = "Error: Invalid file type";
@@ -91,12 +95,15 @@ namespace FormatNames {
                 fileName_TextBox.BackColor = Color.Firebrick;
                 fileName_TextBox.ForeColor = Color.White;
                 if (path == "") {
-                    errorMessage_Label.Text = "Error: Select a file first";
+                    consoleMessage_Label.Visible = true;
+                    consoleMessage_Label.Text = "Error: Select a file first";
                 }
                 else {
-                    errorMessage_Label.Text = "Error: Bad file path";
+                    consoleMessage_Label.Visible = true;
+                    consoleMessage_Label.Text = "Error: Bad file path";
                 }
             }
+            return status;
         }
 
         private void emailFormat_RadioButton_CheckedChanged(object sender, EventArgs e) {
