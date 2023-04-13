@@ -137,6 +137,19 @@ namespace FormatNames {
                     incorrectFormat.Clear();
                     inputLine = inputLine.Trim();
                     incorrectFormat.AddRange(inputLine.Split());
+                    
+
+                    ///______________________________________THIS DOESN"T WORK WHY_________________________________________________________
+                    //grammar
+                    for(int i = 0; i < incorrectFormat.Count; i++) {
+                        string temp;
+                        temp = incorrectFormat[i].First().ToString().ToUpper() + incorrectFormat[i].Substring(1).ToLower();
+                        incorrectFormat[i] = temp;
+                    }
+                    ///______________________________________THIS DOESN"T WORK WHY_________________________________________________________
+
+
+
                     if (inputLine.Contains("@")) {
                         //delete bad data
                     }
@@ -194,7 +207,7 @@ namespace FormatNames {
                     //first m. last
                     else if (incorrectFormat.Count() == 3 && incorrectFormat[1].Contains(".")) {
                         if (target == 0) {
-                            correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1] + " " + incorrectFormat[2]);
+                            correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1].ToUpper() + " " + incorrectFormat[2]);
                         }
                         else if (target == 1) {
                             correctFormat.Add(incorrectFormat[2] + ", " + incorrectFormat[0] + " " + incorrectFormat[1]);
@@ -242,10 +255,7 @@ namespace FormatNames {
                 }
             }
 
-            //do it here to be more efficient? 
-
-            //File.WriteAllLines(path, correctFormat);
-
+            //write to file with user defined style
             using (StreamWriter sw = File.CreateText(path)) {
                 if (capitalizedStyle_radioButton.Checked) {
                     foreach (string s in correctFormat) {
