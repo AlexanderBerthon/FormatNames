@@ -25,3 +25,7 @@ Supported styles:
  - Standard
 
 See example below..
+
+
+https://user-images.githubusercontent.com/71737894/231877560-26efdd6d-d7d9-42c2-9ff4-b85337a1556e.mp4
+
