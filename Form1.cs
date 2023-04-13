@@ -23,9 +23,11 @@ namespace FormatNames {
     the data back into whatever file they are working
 
 
-    TESTING
-    new functionallity works perfectly and data can be formated back and forth without issue
-
+    TODO:
+    - implement ALL CAPS style
+    - implement all lower style
+    - implement standard style
+    - ensure these styles can be changed to and from each while maintaining current functionality 
     */
 
     public partial class Form1 : Form {
@@ -40,7 +42,7 @@ namespace FormatNames {
 
         private void FileSelectButton_Click(object sender, EventArgs e) {
             fileName_TextBox.BackColor = System.Drawing.SystemColors.Control;
-            consoleMessage_Label.Text = "";
+            preview();
 
             if (openfiledialog1.ShowDialog() == DialogResult.OK) {
                 path = openfiledialog1.FileName;
@@ -81,7 +83,7 @@ namespace FormatNames {
                 }
 
                 //separate code to format capitalization here?
-                //
+
             }
         }
 
@@ -240,10 +242,25 @@ namespace FormatNames {
                 }
             }
 
-            File.WriteAllLines(path, correctFormat);
+            //do it here to be more efficient? 
+
+            //File.WriteAllLines(path, correctFormat);
+
             using (StreamWriter sw = File.CreateText(path)) {
-                foreach (string s in correctFormat) {
-                    sw.WriteLine(s);
+                if (capitalizedStyle_radioButton.Checked) {
+                    foreach (string s in correctFormat) {
+                        sw.WriteLine(s.ToUpper());
+                    }
+                }
+                else if (lowercaseStyle_radioButton.Checked) {
+                    foreach (string s in correctFormat) {
+                        sw.WriteLine(s.ToLower());
+                    }
+                }
+                else {
+                    foreach (string s in correctFormat) {
+                        sw.WriteLine(s); //this will need additional work..
+                    }
                 }
             }
 
@@ -263,7 +280,7 @@ namespace FormatNames {
                 consoleMessage_Label.Text = ("LASTNAME, FIRSTNAME");
             }
             else if (capitalizedStyle_radioButton.Checked && emailFormat_RadioButton.Checked) {
-                consoleMessage_Label.Text = ("FIRST.LAST@EMAIL.COM");
+                consoleMessage_Label.Text = ("FIRST.LAST@" + emailDomain_Textbox.Text);
             }
             else if (lowercaseStyle_radioButton.Checked && firstLastFormat_RadioButton.Checked) {
                 consoleMessage_Label.Text = ("firstname lastname");
@@ -272,7 +289,7 @@ namespace FormatNames {
                 consoleMessage_Label.Text = ("lastname, firstname");
             }
             else if (lowercaseStyle_radioButton.Checked && emailFormat_RadioButton.Checked) {
-                consoleMessage_Label.Text = ("first.last@email.com");
+                consoleMessage_Label.Text = ("first.last@" + emailDomain_Textbox.Text);
             }
             else if (standardStyle_radioButton.Checked && firstLastFormat_RadioButton.Checked) {
                 consoleMessage_Label.Text = ("Firstname Lastname");
@@ -281,7 +298,7 @@ namespace FormatNames {
                 consoleMessage_Label.Text = ("Lastname, Firstname");
             }
             else if (standardStyle_radioButton.Checked && emailFormat_RadioButton.Checked) {
-                consoleMessage_Label.Text = ("First.Last@email.com");
+                consoleMessage_Label.Text = ("First.Last@" + emailDomain_Textbox.Text);
             }
 
         }
@@ -299,6 +316,9 @@ namespace FormatNames {
 
         }
 
+        private void emailDomain_Textbox_TextChanged(object sender, EventArgs e) {
+            preview();
+        }
     }
 }
 
