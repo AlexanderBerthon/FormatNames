@@ -22,12 +22,10 @@ namespace FormatNames {
     does it need to though? Out of scope? Just force .txt files to modify and they can always just copy paste
     the data back into whatever file they are working
 
-
-    TODO:
-    - implement ALL CAPS style
-    - implement all lower style
-    - implement standard style
-    - ensure these styles can be changed to and from each while maintaining current functionality 
+    program handles a lot of similar but very distinct cases
+    so the logic is basically hardcoded to handle all of these situations
+    not ideal, but neccessary for it to function
+    reduced repetition as much as possible with helper functions
     */
 
     public partial class Form1 : Form {
@@ -60,7 +58,7 @@ namespace FormatNames {
                     formatFile(path, 1);
                 }
                 else if (emailFormat_RadioButton.Checked) {
-                    if (emailFormat_RadioButton.Text.Contains(".")) {
+                    if (emailDomain_Textbox.Text.Contains(".")) { //changed this
                         formatFile(path, 2);
                         //probably need to write a regex for this
                         //match pattern, min 2 char before . and 2 char after . and . must be included
@@ -81,9 +79,6 @@ namespace FormatNames {
                     consoleMessage_Label.ForeColor = Color.Red;
                     consoleMessage_Label.Text = "Select a Target Format";
                 }
-
-                //separate code to format capitalization here?
-
             }
         }
 
@@ -117,38 +112,20 @@ namespace FormatNames {
             return status;
         }
 
-        private void emailFormat_RadioButton_CheckedChanged(object sender, EventArgs e) {
-            if (emailFormat_RadioButton.Checked) {
-                emailDomain_Textbox.Visible = true;
-            }
-            else {
-                emailDomain_Textbox.Visible = false;
-                emailDomain_Textbox.Text = "";
-            }
-        }
-
         private void formatFile(String path, int target) {
             List<string> correctFormat = new List<string>();
             List<string> incorrectFormat = new List<string>();
             using (StreamReader sr = File.OpenText(path)) {
                 string inputLine;
-                //its ugly but it should work..
+
                 while ((inputLine = sr.ReadLine()) != null) {
                     incorrectFormat.Clear();
                     inputLine = inputLine.Trim();
                     incorrectFormat.AddRange(inputLine.Split());
-                    
 
-                    ///______________________________________THIS DOESN"T WORK WHY_________________________________________________________
-                    //grammar
                     for(int i = 0; i < incorrectFormat.Count; i++) {
-                        string temp;
-                        temp = incorrectFormat[i].First().ToString().ToUpper() + incorrectFormat[i].Substring(1).ToLower();
-                        incorrectFormat[i] = temp;
+                        incorrectFormat[i] = incorrectFormat[i].First().ToString().ToUpper() + incorrectFormat[i].Substring(1).ToLower();
                     }
-                    ///______________________________________THIS DOESN"T WORK WHY_________________________________________________________
-
-
 
                     if (inputLine.Contains("@")) {
                         //delete bad data
@@ -165,7 +142,7 @@ namespace FormatNames {
                             correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1] + " " + incorrectFormat[2]);
                         }
                         else if (target == 2) {
-                            correctFormat.Add(incorrectFormat[1] + incorrectFormat[2].ToUpper() + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1) + "@" + emailDomain_Textbox.Text);
+                            correctFormat.Add(incorrectFormat[1] + incorrectFormat[2] + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1) + "@" + emailDomain_Textbox.Text);
                         }
                     }
                     //lastname, firstname middle
@@ -177,7 +154,7 @@ namespace FormatNames {
                             correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1] + " " + incorrectFormat[2].ElementAt(0) + ".");
                         }
                         else if (target == 2) {
-                            correctFormat.Add(incorrectFormat[1] + incorrectFormat[2].ToUpper().ElementAt(0) + "." + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1) + "@" + emailDomain_Textbox.Text);
+                            correctFormat.Add(incorrectFormat[1] + incorrectFormat[2].ElementAt(0) + "." + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1) + "@" + emailDomain_Textbox.Text);
                         }
                     }
                     //lastname, firstname m
@@ -189,7 +166,7 @@ namespace FormatNames {
                             correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1] + " " + incorrectFormat[2] + ".");
                         }
                         else if (target == 2) {
-                            correctFormat.Add(incorrectFormat[1] + incorrectFormat[2].ToUpper() + "." + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1) + "@" + emailDomain_Textbox.Text);
+                            correctFormat.Add(incorrectFormat[1] + incorrectFormat[2] + "." + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1) + "@" + emailDomain_Textbox.Text);
                         }
                     }
                     //lastname, firstname
@@ -207,13 +184,13 @@ namespace FormatNames {
                     //first m. last
                     else if (incorrectFormat.Count() == 3 && incorrectFormat[1].Contains(".")) {
                         if (target == 0) {
-                            correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1].ToUpper() + " " + incorrectFormat[2]);
+                            correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1] + " " + incorrectFormat[2]);
                         }
                         else if (target == 1) {
                             correctFormat.Add(incorrectFormat[2] + ", " + incorrectFormat[0] + " " + incorrectFormat[1]);
                         }
                         else if (target == 2) {
-                            correctFormat.Add(incorrectFormat[0] + incorrectFormat[1].ToUpper() + incorrectFormat[2] + "@" + emailDomain_Textbox.Text);
+                            correctFormat.Add(incorrectFormat[0] + incorrectFormat[1] + incorrectFormat[2] + "@" + emailDomain_Textbox.Text);
                         }
                     }
                     //first middle last
@@ -225,7 +202,7 @@ namespace FormatNames {
                             correctFormat.Add(incorrectFormat[2] + ", " + incorrectFormat[0] + " " + incorrectFormat[1].ElementAt(0) + ".");
                         }
                         else if (target == 2) {
-                            correctFormat.Add(incorrectFormat[0] + incorrectFormat[1].ToUpper().ElementAt(0) + "." + incorrectFormat[2] + "@" + emailDomain_Textbox.Text);
+                            correctFormat.Add(incorrectFormat[0] + incorrectFormat[1].ElementAt(0) + "." + incorrectFormat[2] + "@" + emailDomain_Textbox.Text);
                         }
                     }
                     //first m last
@@ -237,7 +214,7 @@ namespace FormatNames {
                             correctFormat.Add(incorrectFormat[2] + ", " + incorrectFormat[0] + " " + incorrectFormat[1] + ".");
                         }
                         else if (target == 2) {
-                            correctFormat.Add(incorrectFormat[0] + incorrectFormat[1].ToUpper() + "." + incorrectFormat[2] + "@" + emailDomain_Textbox.Text);
+                            correctFormat.Add(incorrectFormat[0] + incorrectFormat[1] + "." + incorrectFormat[2] + "@" + emailDomain_Textbox.Text);
                         }
                     }
                     //first last
@@ -269,13 +246,11 @@ namespace FormatNames {
                 }
                 else {
                     foreach (string s in correctFormat) {
-                        sw.WriteLine(s); //this will need additional work..
+                        sw.WriteLine(s);
                     }
                 }
             }
-
             fileName_TextBox.BackColor = Color.LimeGreen;
-
         }
 
         private void preview() {
@@ -310,10 +285,10 @@ namespace FormatNames {
             else if (standardStyle_radioButton.Checked && emailFormat_RadioButton.Checked) {
                 consoleMessage_Label.Text = ("First.Last@" + emailDomain_Textbox.Text);
             }
-
         }
 
         private void radioButton_CheckedChanged(object sender, EventArgs e) {
+            fileName_TextBox.BackColor = System.Drawing.SystemColors.Control;
             preview();
 
             if (emailFormat_RadioButton.Checked) {
@@ -331,18 +306,3 @@ namespace FormatNames {
         }
     }
 }
-
-/*
-improvement / ideas
-
-add a preview label that presents an example for each option when selected
-
-more format options
-can be a second set of options? As this doesn't really affect the format at all just capitalization?
- - all lowercase
- - all caps (regardless of the format)
- - convert to gramatically correct //normal/undo the above options
-    - how to achieve this across different formats? 
-    - probably have to loop the entire list, break by whitespace, and capitalze first entry, then sew back together and writeline
-    - it should work regardless of the format though including multiple formats
-*/
