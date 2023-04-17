@@ -29,3 +29,14 @@ See example below..
 
 https://user-images.githubusercontent.com/71737894/231877560-26efdd6d-d7d9-42c2-9ff4-b85337a1556e.mp4
 
+
+__________________________________________________________________
+
+<H2>How to install:</H2>
+
+1. Download the entire 'publish' folder
+
+2. Run setup.exe
+
+__________________________________________________________________
+
