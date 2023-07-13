@@ -1,33 +1,26 @@
 using System.CodeDom;
 
 namespace FormatNames {
-    //works on..
+
     /*
-    .txt
-    .torrent
-    .diz
-    .sfm
-    .theme
-    .stp
-    .air
-    .ies
-    .srt
-    .m3u8
-    .m3u
-    .pls
-    .reg
-    .xml
-    .bat
+    Identified critical error
+    need to check the validity of the data somehow
+    for example
+    if there is an extra space in a line, the entire program will crash
+    ie.
+    Martin  Palomino 
+    that line has 2 spaces
+    so it breaks the program
 
-    does it need to though? Out of scope? Just force .txt files to modify and they can always just copy paste
-    the data back into whatever file they are working
+    also
+    need to add functionality to sort the text file
 
-    program handles a lot of similar but very distinct cases
-    so the logic is basically hardcoded to handle all of these situations
-    not ideal, but neccessary for it to function
-    reduced repetition as much as possible with helper functions
+    need to add functionality to delete duplicates
+
+
+
+
     */
-
     public partial class Form1 : Form {
         private OpenFileDialog openfiledialog1;
         string path;
@@ -123,7 +116,7 @@ namespace FormatNames {
                     inputLine = inputLine.Trim();
                     incorrectFormat.AddRange(inputLine.Split());
 
-                    for(int i = 0; i < incorrectFormat.Count; i++) {
+                    for (int i = 0; i < incorrectFormat.Count; i++) {
                         incorrectFormat[i] = incorrectFormat[i].First().ToString().ToUpper() + incorrectFormat[i].Substring(1).ToLower();
                     }
 
@@ -230,6 +223,26 @@ namespace FormatNames {
                         }
                     }
                 }
+            }
+
+            //manage duplicates here
+            if (removeDuplicate_RadioButton.Checked) {
+                List<string> temp = new List<string>();
+                for (int i = 0; i< correctFormat.Count; i++) {
+                    if(i == correctFormat.Count - 1) {
+                        temp.Add(correctFormat[i]);
+                        break;
+                    }
+                    for(int j = i+1; j<correctFormat.Count; j++) {
+                        if (correctFormat[i].Equals(correctFormat[j])) {
+                            break;
+                        }
+                        else if(j == correctFormat.Count -1){
+                            temp.Add(correctFormat[i]);
+                        }
+                    }
+                }
+                correctFormat = temp;
             }
 
             //write to file with user defined style

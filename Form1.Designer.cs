@@ -23,234 +23,284 @@
         ///  the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.fileName_TextBox = new System.Windows.Forms.TextBox();
-            this.selectFile_Button = new System.Windows.Forms.Button();
-            this.format_Button = new System.Windows.Forms.Button();
-            this.firstLastFormat_RadioButton = new System.Windows.Forms.RadioButton();
-            this.lastFirstFormat_RadioButton = new System.Windows.Forms.RadioButton();
-            this.emailFormat_RadioButton = new System.Windows.Forms.RadioButton();
-            this.selectTarget_Label = new System.Windows.Forms.Label();
-            this.emailDomain_Textbox = new System.Windows.Forms.TextBox();
-            this.consoleMessage_Label = new System.Windows.Forms.Label();
-            this.selectCaps_Label = new System.Windows.Forms.Label();
-            this.capitalizedStyle_radioButton = new System.Windows.Forms.RadioButton();
-            this.lowercaseStyle_radioButton = new System.Windows.Forms.RadioButton();
-            this.standardStyle_radioButton = new System.Windows.Forms.RadioButton();
-            this.captializationStyle_Panel = new System.Windows.Forms.Panel();
-            this.targetFormat_Panel = new System.Windows.Forms.Panel();
-            this.console_Panel = new System.Windows.Forms.Panel();
-            this.consoleTitle_Label = new System.Windows.Forms.Label();
-            this.captializationStyle_Panel.SuspendLayout();
-            this.targetFormat_Panel.SuspendLayout();
-            this.console_Panel.SuspendLayout();
-            this.SuspendLayout();
+            fileName_TextBox = new TextBox();
+            selectFile_Button = new Button();
+            format_Button = new Button();
+            firstLastFormat_RadioButton = new RadioButton();
+            lastFirstFormat_RadioButton = new RadioButton();
+            emailFormat_RadioButton = new RadioButton();
+            selectTarget_Label = new Label();
+            emailDomain_Textbox = new TextBox();
+            consoleMessage_Label = new Label();
+            selectCaps_Label = new Label();
+            capitalizedStyle_radioButton = new RadioButton();
+            lowercaseStyle_radioButton = new RadioButton();
+            standardStyle_radioButton = new RadioButton();
+            captializationStyle_Panel = new Panel();
+            targetFormat_Panel = new Panel();
+            console_Panel = new Panel();
+            consoleTitle_Label = new Label();
+            panel1 = new Panel();
+            removeDulicate_Label = new Label();
+            removeDuplicate_RadioButton = new RadioButton();
+            keepDuplicates_RadioButton = new RadioButton();
+            captializationStyle_Panel.SuspendLayout();
+            targetFormat_Panel.SuspendLayout();
+            console_Panel.SuspendLayout();
+            panel1.SuspendLayout();
+            SuspendLayout();
             // 
             // fileName_TextBox
             // 
-            this.fileName_TextBox.BackColor = System.Drawing.SystemColors.Control;
-            this.fileName_TextBox.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.fileName_TextBox.Location = new System.Drawing.Point(12, 21);
-            this.fileName_TextBox.Name = "fileName_TextBox";
-            this.fileName_TextBox.ReadOnly = true;
-            this.fileName_TextBox.Size = new System.Drawing.Size(160, 23);
-            this.fileName_TextBox.TabIndex = 0;
+            fileName_TextBox.BackColor = SystemColors.Control;
+            fileName_TextBox.ForeColor = SystemColors.WindowText;
+            fileName_TextBox.Location = new Point(12, 21);
+            fileName_TextBox.Name = "fileName_TextBox";
+            fileName_TextBox.ReadOnly = true;
+            fileName_TextBox.Size = new Size(160, 23);
+            fileName_TextBox.TabIndex = 0;
             // 
             // selectFile_Button
             // 
-            this.selectFile_Button.Location = new System.Drawing.Point(43, 50);
-            this.selectFile_Button.Name = "selectFile_Button";
-            this.selectFile_Button.Size = new System.Drawing.Size(100, 23);
-            this.selectFile_Button.TabIndex = 1;
-            this.selectFile_Button.Text = "Select File";
-            this.selectFile_Button.UseVisualStyleBackColor = true;
-            this.selectFile_Button.Click += new System.EventHandler(this.FileSelectButton_Click);
+            selectFile_Button.Location = new Point(43, 50);
+            selectFile_Button.Name = "selectFile_Button";
+            selectFile_Button.Size = new Size(100, 23);
+            selectFile_Button.TabIndex = 1;
+            selectFile_Button.Text = "Select File";
+            selectFile_Button.UseVisualStyleBackColor = true;
+            selectFile_Button.Click += FileSelectButton_Click;
             // 
             // format_Button
             // 
-            this.format_Button.Location = new System.Drawing.Point(55, 360);
-            this.format_Button.Name = "format_Button";
-            this.format_Button.Size = new System.Drawing.Size(75, 23);
-            this.format_Button.TabIndex = 2;
-            this.format_Button.Text = "Format";
-            this.format_Button.UseVisualStyleBackColor = true;
-            this.format_Button.Click += new System.EventHandler(this.format_Button_Click);
+            format_Button.Location = new Point(55, 415);
+            format_Button.Name = "format_Button";
+            format_Button.Size = new Size(75, 23);
+            format_Button.TabIndex = 2;
+            format_Button.Text = "Format";
+            format_Button.UseVisualStyleBackColor = true;
+            format_Button.Click += format_Button_Click;
             // 
             // firstLastFormat_RadioButton
             // 
-            this.firstLastFormat_RadioButton.AutoSize = true;
-            this.firstLastFormat_RadioButton.Location = new System.Drawing.Point(7, 20);
-            this.firstLastFormat_RadioButton.Name = "firstLastFormat_RadioButton";
-            this.firstLastFormat_RadioButton.Size = new System.Drawing.Size(131, 19);
-            this.firstLastFormat_RadioButton.TabIndex = 4;
-            this.firstLastFormat_RadioButton.TabStop = true;
-            this.firstLastFormat_RadioButton.Text = "Firstname Lastname";
-            this.firstLastFormat_RadioButton.UseVisualStyleBackColor = true;
-            this.firstLastFormat_RadioButton.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            firstLastFormat_RadioButton.AutoSize = true;
+            firstLastFormat_RadioButton.Location = new Point(7, 20);
+            firstLastFormat_RadioButton.Name = "firstLastFormat_RadioButton";
+            firstLastFormat_RadioButton.Size = new Size(131, 19);
+            firstLastFormat_RadioButton.TabIndex = 4;
+            firstLastFormat_RadioButton.TabStop = true;
+            firstLastFormat_RadioButton.Text = "Firstname Lastname";
+            firstLastFormat_RadioButton.UseVisualStyleBackColor = true;
+            firstLastFormat_RadioButton.CheckedChanged += radioButton_CheckedChanged;
             // 
             // lastFirstFormat_RadioButton
             // 
-            this.lastFirstFormat_RadioButton.AutoSize = true;
-            this.lastFirstFormat_RadioButton.Location = new System.Drawing.Point(7, 45);
-            this.lastFirstFormat_RadioButton.Name = "lastFirstFormat_RadioButton";
-            this.lastFirstFormat_RadioButton.Size = new System.Drawing.Size(134, 19);
-            this.lastFirstFormat_RadioButton.TabIndex = 5;
-            this.lastFirstFormat_RadioButton.TabStop = true;
-            this.lastFirstFormat_RadioButton.Text = "Lastname, Firstname";
-            this.lastFirstFormat_RadioButton.UseVisualStyleBackColor = true;
-            this.lastFirstFormat_RadioButton.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            lastFirstFormat_RadioButton.AutoSize = true;
+            lastFirstFormat_RadioButton.Location = new Point(7, 45);
+            lastFirstFormat_RadioButton.Name = "lastFirstFormat_RadioButton";
+            lastFirstFormat_RadioButton.Size = new Size(134, 19);
+            lastFirstFormat_RadioButton.TabIndex = 5;
+            lastFirstFormat_RadioButton.TabStop = true;
+            lastFirstFormat_RadioButton.Text = "Lastname, Firstname";
+            lastFirstFormat_RadioButton.UseVisualStyleBackColor = true;
+            lastFirstFormat_RadioButton.CheckedChanged += radioButton_CheckedChanged;
             // 
             // emailFormat_RadioButton
             // 
-            this.emailFormat_RadioButton.AutoSize = true;
-            this.emailFormat_RadioButton.Location = new System.Drawing.Point(7, 70);
-            this.emailFormat_RadioButton.Name = "emailFormat_RadioButton";
-            this.emailFormat_RadioButton.Size = new System.Drawing.Size(138, 19);
-            this.emailFormat_RadioButton.TabIndex = 6;
-            this.emailFormat_RadioButton.TabStop = true;
-            this.emailFormat_RadioButton.Text = "First.Last@email.com";
-            this.emailFormat_RadioButton.UseVisualStyleBackColor = true;
-            this.emailFormat_RadioButton.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            emailFormat_RadioButton.AutoSize = true;
+            emailFormat_RadioButton.Location = new Point(7, 70);
+            emailFormat_RadioButton.Name = "emailFormat_RadioButton";
+            emailFormat_RadioButton.Size = new Size(138, 19);
+            emailFormat_RadioButton.TabIndex = 6;
+            emailFormat_RadioButton.TabStop = true;
+            emailFormat_RadioButton.Text = "First.Last@email.com";
+            emailFormat_RadioButton.UseVisualStyleBackColor = true;
+            emailFormat_RadioButton.CheckedChanged += radioButton_CheckedChanged;
             // 
             // selectTarget_Label
             // 
-            this.selectTarget_Label.AutoSize = true;
-            this.selectTarget_Label.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.selectTarget_Label.Location = new System.Drawing.Point(0, 0);
-            this.selectTarget_Label.Name = "selectTarget_Label";
-            this.selectTarget_Label.Size = new System.Drawing.Size(124, 15);
-            this.selectTarget_Label.TabIndex = 7;
-            this.selectTarget_Label.Text = "Select Target Format";
+            selectTarget_Label.AutoSize = true;
+            selectTarget_Label.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            selectTarget_Label.Location = new Point(0, 0);
+            selectTarget_Label.Name = "selectTarget_Label";
+            selectTarget_Label.Size = new Size(124, 15);
+            selectTarget_Label.TabIndex = 7;
+            selectTarget_Label.Text = "Select Target Format";
             // 
             // emailDomain_Textbox
             // 
-            this.emailDomain_Textbox.Location = new System.Drawing.Point(0, 95);
-            this.emailDomain_Textbox.Name = "emailDomain_Textbox";
-            this.emailDomain_Textbox.PlaceholderText = "Email.com";
-            this.emailDomain_Textbox.Size = new System.Drawing.Size(160, 23);
-            this.emailDomain_Textbox.TabIndex = 8;
-            this.emailDomain_Textbox.Visible = false;
-            this.emailDomain_Textbox.TextChanged += new System.EventHandler(this.emailDomain_Textbox_TextChanged);
+            emailDomain_Textbox.Location = new Point(0, 95);
+            emailDomain_Textbox.Name = "emailDomain_Textbox";
+            emailDomain_Textbox.PlaceholderText = "Email.com";
+            emailDomain_Textbox.Size = new Size(160, 23);
+            emailDomain_Textbox.TabIndex = 8;
+            emailDomain_Textbox.Visible = false;
+            emailDomain_Textbox.TextChanged += emailDomain_Textbox_TextChanged;
             // 
             // consoleMessage_Label
             // 
-            this.consoleMessage_Label.AutoSize = true;
-            this.consoleMessage_Label.ForeColor = System.Drawing.Color.Black;
-            this.consoleMessage_Label.Location = new System.Drawing.Point(0, 15);
-            this.consoleMessage_Label.MinimumSize = new System.Drawing.Size(160, 15);
-            this.consoleMessage_Label.Name = "consoleMessage_Label";
-            this.consoleMessage_Label.Size = new System.Drawing.Size(160, 15);
-            this.consoleMessage_Label.TabIndex = 9;
-            this.consoleMessage_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            consoleMessage_Label.AutoSize = true;
+            consoleMessage_Label.ForeColor = Color.Black;
+            consoleMessage_Label.Location = new Point(0, 15);
+            consoleMessage_Label.MinimumSize = new Size(160, 15);
+            consoleMessage_Label.Name = "consoleMessage_Label";
+            consoleMessage_Label.Size = new Size(160, 15);
+            consoleMessage_Label.TabIndex = 9;
+            consoleMessage_Label.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // selectCaps_Label
             // 
-            this.selectCaps_Label.AutoSize = true;
-            this.selectCaps_Label.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.selectCaps_Label.Location = new System.Drawing.Point(3, 0);
-            this.selectCaps_Label.Name = "selectCaps_Label";
-            this.selectCaps_Label.Size = new System.Drawing.Size(150, 15);
-            this.selectCaps_Label.TabIndex = 10;
-            this.selectCaps_Label.Text = "Select Capitalization Style";
+            selectCaps_Label.AutoSize = true;
+            selectCaps_Label.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            selectCaps_Label.Location = new Point(3, 0);
+            selectCaps_Label.Name = "selectCaps_Label";
+            selectCaps_Label.Size = new Size(150, 15);
+            selectCaps_Label.TabIndex = 10;
+            selectCaps_Label.Text = "Select Capitalization Style";
             // 
             // capitalizedStyle_radioButton
             // 
-            this.capitalizedStyle_radioButton.AutoSize = true;
-            this.capitalizedStyle_radioButton.Location = new System.Drawing.Point(10, 21);
-            this.capitalizedStyle_radioButton.Name = "capitalizedStyle_radioButton";
-            this.capitalizedStyle_radioButton.Size = new System.Drawing.Size(70, 19);
-            this.capitalizedStyle_radioButton.TabIndex = 11;
-            this.capitalizedStyle_radioButton.Text = "CAPITAL";
-            this.capitalizedStyle_radioButton.UseVisualStyleBackColor = true;
-            this.capitalizedStyle_radioButton.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            capitalizedStyle_radioButton.AutoSize = true;
+            capitalizedStyle_radioButton.Location = new Point(10, 21);
+            capitalizedStyle_radioButton.Name = "capitalizedStyle_radioButton";
+            capitalizedStyle_radioButton.Size = new Size(70, 19);
+            capitalizedStyle_radioButton.TabIndex = 11;
+            capitalizedStyle_radioButton.Text = "CAPITAL";
+            capitalizedStyle_radioButton.UseVisualStyleBackColor = true;
+            capitalizedStyle_radioButton.CheckedChanged += radioButton_CheckedChanged;
             // 
             // lowercaseStyle_radioButton
             // 
-            this.lowercaseStyle_radioButton.AutoSize = true;
-            this.lowercaseStyle_radioButton.Location = new System.Drawing.Point(10, 46);
-            this.lowercaseStyle_radioButton.Name = "lowercaseStyle_radioButton";
-            this.lowercaseStyle_radioButton.Size = new System.Drawing.Size(77, 19);
-            this.lowercaseStyle_radioButton.TabIndex = 12;
-            this.lowercaseStyle_radioButton.Text = "lowercase";
-            this.lowercaseStyle_radioButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lowercaseStyle_radioButton.UseVisualStyleBackColor = true;
-            this.lowercaseStyle_radioButton.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            lowercaseStyle_radioButton.AutoSize = true;
+            lowercaseStyle_radioButton.Location = new Point(10, 46);
+            lowercaseStyle_radioButton.Name = "lowercaseStyle_radioButton";
+            lowercaseStyle_radioButton.Size = new Size(77, 19);
+            lowercaseStyle_radioButton.TabIndex = 12;
+            lowercaseStyle_radioButton.Text = "lowercase";
+            lowercaseStyle_radioButton.TextAlign = ContentAlignment.MiddleCenter;
+            lowercaseStyle_radioButton.UseVisualStyleBackColor = true;
+            lowercaseStyle_radioButton.CheckedChanged += radioButton_CheckedChanged;
             // 
             // standardStyle_radioButton
             // 
-            this.standardStyle_radioButton.AutoSize = true;
-            this.standardStyle_radioButton.Checked = true;
-            this.standardStyle_radioButton.Location = new System.Drawing.Point(10, 71);
-            this.standardStyle_radioButton.Name = "standardStyle_radioButton";
-            this.standardStyle_radioButton.Size = new System.Drawing.Size(72, 19);
-            this.standardStyle_radioButton.TabIndex = 13;
-            this.standardStyle_radioButton.TabStop = true;
-            this.standardStyle_radioButton.Text = "Standard";
-            this.standardStyle_radioButton.UseVisualStyleBackColor = true;
-            this.standardStyle_radioButton.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            standardStyle_radioButton.AutoSize = true;
+            standardStyle_radioButton.Checked = true;
+            standardStyle_radioButton.Location = new Point(10, 71);
+            standardStyle_radioButton.Name = "standardStyle_radioButton";
+            standardStyle_radioButton.Size = new Size(72, 19);
+            standardStyle_radioButton.TabIndex = 13;
+            standardStyle_radioButton.TabStop = true;
+            standardStyle_radioButton.Text = "Standard";
+            standardStyle_radioButton.UseVisualStyleBackColor = true;
+            standardStyle_radioButton.CheckedChanged += radioButton_CheckedChanged;
             // 
             // captializationStyle_Panel
             // 
-            this.captializationStyle_Panel.Controls.Add(this.selectCaps_Label);
-            this.captializationStyle_Panel.Controls.Add(this.standardStyle_radioButton);
-            this.captializationStyle_Panel.Controls.Add(this.capitalizedStyle_radioButton);
-            this.captializationStyle_Panel.Controls.Add(this.lowercaseStyle_radioButton);
-            this.captializationStyle_Panel.Location = new System.Drawing.Point(12, 85);
-            this.captializationStyle_Panel.Name = "captializationStyle_Panel";
-            this.captializationStyle_Panel.Size = new System.Drawing.Size(160, 100);
-            this.captializationStyle_Panel.TabIndex = 14;
+            captializationStyle_Panel.Controls.Add(selectCaps_Label);
+            captializationStyle_Panel.Controls.Add(standardStyle_radioButton);
+            captializationStyle_Panel.Controls.Add(capitalizedStyle_radioButton);
+            captializationStyle_Panel.Controls.Add(lowercaseStyle_radioButton);
+            captializationStyle_Panel.Location = new Point(12, 85);
+            captializationStyle_Panel.Name = "captializationStyle_Panel";
+            captializationStyle_Panel.Size = new Size(160, 100);
+            captializationStyle_Panel.TabIndex = 14;
             // 
             // targetFormat_Panel
             // 
-            this.targetFormat_Panel.Controls.Add(this.selectTarget_Label);
-            this.targetFormat_Panel.Controls.Add(this.firstLastFormat_RadioButton);
-            this.targetFormat_Panel.Controls.Add(this.lastFirstFormat_RadioButton);
-            this.targetFormat_Panel.Controls.Add(this.emailDomain_Textbox);
-            this.targetFormat_Panel.Controls.Add(this.emailFormat_RadioButton);
-            this.targetFormat_Panel.Location = new System.Drawing.Point(12, 190);
-            this.targetFormat_Panel.Name = "targetFormat_Panel";
-            this.targetFormat_Panel.Size = new System.Drawing.Size(160, 118);
-            this.targetFormat_Panel.TabIndex = 15;
+            targetFormat_Panel.Controls.Add(selectTarget_Label);
+            targetFormat_Panel.Controls.Add(firstLastFormat_RadioButton);
+            targetFormat_Panel.Controls.Add(lastFirstFormat_RadioButton);
+            targetFormat_Panel.Controls.Add(emailDomain_Textbox);
+            targetFormat_Panel.Controls.Add(emailFormat_RadioButton);
+            targetFormat_Panel.Location = new Point(12, 190);
+            targetFormat_Panel.Name = "targetFormat_Panel";
+            targetFormat_Panel.Size = new Size(160, 118);
+            targetFormat_Panel.TabIndex = 15;
             // 
             // console_Panel
             // 
-            this.console_Panel.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.console_Panel.Controls.Add(this.consoleTitle_Label);
-            this.console_Panel.Controls.Add(this.consoleMessage_Label);
-            this.console_Panel.Location = new System.Drawing.Point(12, 315);
-            this.console_Panel.Name = "console_Panel";
-            this.console_Panel.Size = new System.Drawing.Size(160, 41);
-            this.console_Panel.TabIndex = 16;
+            console_Panel.BackColor = SystemColors.ControlLight;
+            console_Panel.Controls.Add(consoleTitle_Label);
+            console_Panel.Controls.Add(consoleMessage_Label);
+            console_Panel.Location = new Point(12, 370);
+            console_Panel.Name = "console_Panel";
+            console_Panel.Size = new Size(160, 41);
+            console_Panel.TabIndex = 16;
             // 
             // consoleTitle_Label
             // 
-            this.consoleTitle_Label.AutoSize = true;
-            this.consoleTitle_Label.Location = new System.Drawing.Point(0, -2);
-            this.consoleTitle_Label.Name = "consoleTitle_Label";
-            this.consoleTitle_Label.Size = new System.Drawing.Size(51, 15);
-            this.consoleTitle_Label.TabIndex = 10;
-            this.consoleTitle_Label.Text = "Preview:";
+            consoleTitle_Label.AutoSize = true;
+            consoleTitle_Label.Location = new Point(0, -2);
+            consoleTitle_Label.Name = "consoleTitle_Label";
+            consoleTitle_Label.Size = new Size(51, 15);
+            consoleTitle_Label.TabIndex = 10;
+            consoleTitle_Label.Text = "Preview:";
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(removeDulicate_Label);
+            panel1.Controls.Add(removeDuplicate_RadioButton);
+            panel1.Controls.Add(keepDuplicates_RadioButton);
+            panel1.Location = new Point(12, 315);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(160, 50);
+            panel1.TabIndex = 15;
+            // 
+            // removeDulicate_Label
+            // 
+            removeDulicate_Label.AutoSize = true;
+            removeDulicate_Label.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            removeDulicate_Label.Location = new Point(3, 0);
+            removeDulicate_Label.Name = "removeDulicate_Label";
+            removeDulicate_Label.Size = new Size(120, 15);
+            removeDulicate_Label.TabIndex = 10;
+            removeDulicate_Label.Text = "Remove Duplicates?";
+            // 
+            // removeDuplicate_RadioButton
+            // 
+            removeDuplicate_RadioButton.AutoSize = true;
+            removeDuplicate_RadioButton.Location = new Point(10, 21);
+            removeDuplicate_RadioButton.Name = "removeDuplicate_RadioButton";
+            removeDuplicate_RadioButton.Size = new Size(42, 19);
+            removeDuplicate_RadioButton.TabIndex = 11;
+            removeDuplicate_RadioButton.Text = "Yes";
+            removeDuplicate_RadioButton.UseVisualStyleBackColor = true;
+            removeDuplicate_RadioButton.CheckedChanged += radioButton_CheckedChanged;
+            // 
+            // keepDuplicates_RadioButton
+            // 
+            keepDuplicates_RadioButton.AutoSize = true;
+            keepDuplicates_RadioButton.Location = new Point(77, 21);
+            keepDuplicates_RadioButton.Name = "keepDuplicates_RadioButton";
+            keepDuplicates_RadioButton.Size = new Size(41, 19);
+            keepDuplicates_RadioButton.TabIndex = 12;
+            keepDuplicates_RadioButton.Text = "No";
+            keepDuplicates_RadioButton.TextAlign = ContentAlignment.MiddleCenter;
+            keepDuplicates_RadioButton.UseVisualStyleBackColor = true;
+            keepDuplicates_RadioButton.CheckedChanged += radioButton_CheckedChanged;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(184, 391);
-            this.Controls.Add(this.console_Panel);
-            this.Controls.Add(this.targetFormat_Panel);
-            this.Controls.Add(this.captializationStyle_Panel);
-            this.Controls.Add(this.format_Button);
-            this.Controls.Add(this.selectFile_Button);
-            this.Controls.Add(this.fileName_TextBox);
-            this.Name = "Form1";
-            this.captializationStyle_Panel.ResumeLayout(false);
-            this.captializationStyle_Panel.PerformLayout();
-            this.targetFormat_Panel.ResumeLayout(false);
-            this.targetFormat_Panel.PerformLayout();
-            this.console_Panel.ResumeLayout(false);
-            this.console_Panel.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(184, 446);
+            Controls.Add(panel1);
+            Controls.Add(console_Panel);
+            Controls.Add(targetFormat_Panel);
+            Controls.Add(captializationStyle_Panel);
+            Controls.Add(format_Button);
+            Controls.Add(selectFile_Button);
+            Controls.Add(fileName_TextBox);
+            Name = "Form1";
+            captializationStyle_Panel.ResumeLayout(false);
+            captializationStyle_Panel.PerformLayout();
+            targetFormat_Panel.ResumeLayout(false);
+            targetFormat_Panel.PerformLayout();
+            console_Panel.ResumeLayout(false);
+            console_Panel.PerformLayout();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -272,5 +322,9 @@
         private Panel targetFormat_Panel;
         private Panel console_Panel;
         private Label consoleTitle_Label;
+        private Panel panel1;
+        private Label removeDulicate_Label;
+        private RadioButton removeDuplicate_RadioButton;
+        private RadioButton keepDuplicates_RadioButton;
     }
 }
