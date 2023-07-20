@@ -14,12 +14,6 @@ namespace FormatNames {
 
     also
     need to add functionality to sort the text file
-
-    need to add functionality to delete duplicates
-
-
-
-
     */
     public partial class Form1 : Form {
         private OpenFileDialog openfiledialog1;
@@ -115,6 +109,16 @@ namespace FormatNames {
                     incorrectFormat.Clear();
                     inputLine = inputLine.Trim();
                     incorrectFormat.AddRange(inputLine.Split());
+                    
+                    //this block removes empty elements from the list /bad data
+                    List<string> temp = new List<string>();
+                    foreach(string line in incorrectFormat) {
+                        if(line.Length > 0) {
+                            temp.Add(line);
+                        }
+                    }
+                    incorrectFormat = temp;
+
 
                     for (int i = 0; i < incorrectFormat.Count; i++) {
                         incorrectFormat[i] = incorrectFormat[i].First().ToString().ToUpper() + incorrectFormat[i].Substring(1).ToLower();
