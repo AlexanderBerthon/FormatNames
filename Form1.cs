@@ -3,17 +3,7 @@ using System.CodeDom;
 namespace FormatNames {
 
     /*
-    Identified critical error
-    need to check the validity of the data somehow
-    for example
-    if there is an extra space in a line, the entire program will crash
-    ie.
-    Martin  Palomino 
-    that line has 2 spaces
-    so it breaks the program
-
-    also
-    need to add functionality to sort the text file
+    Add function to sort the data file? 
     */
     public partial class Form1 : Form {
         private OpenFileDialog openfiledialog1;
@@ -47,7 +37,7 @@ namespace FormatNames {
                 else if (emailFormat_RadioButton.Checked) {
                     if (emailDomain_Textbox.Text.Contains(".")) { //changed this
                         formatFile(path, 2);
-                        //probably need to write a regex for this
+                        //probably should write a regex for this
                         //match pattern, min 2 char before . and 2 char after . and . must be included
                         //xx.xx
                     }
@@ -102,129 +92,144 @@ namespace FormatNames {
         private void formatFile(String path, int target) {
             List<string> correctFormat = new List<string>();
             List<string> incorrectFormat = new List<string>();
+            Boolean badData = false;
+            int inputLineCount = 0;
+
             using (StreamReader sr = File.OpenText(path)) {
                 string inputLine;
 
                 while ((inputLine = sr.ReadLine()) != null) {
-                    incorrectFormat.Clear();
-                    inputLine = inputLine.Trim();
-                    incorrectFormat.AddRange(inputLine.Split());
-                    
-                    //this block removes empty elements from the list /bad data
-                    List<string> temp = new List<string>();
-                    foreach(string line in incorrectFormat) {
-                        if(line.Length > 0) {
-                            temp.Add(line);
+                    try {
+                        inputLineCount++;
+                        incorrectFormat.Clear();
+                        inputLine = inputLine.Trim();
+                        incorrectFormat.AddRange(inputLine.Split());
+
+                        //this block removes empty elements from the list /bad data
+                        List<string> temp = new List<string>();
+                        foreach (string line in incorrectFormat) {
+                            if (line.Length > 0) {
+                                temp.Add(line);
+                            }
                         }
-                    }
-                    incorrectFormat = temp;
+                        incorrectFormat = temp;
 
 
-                    for (int i = 0; i < incorrectFormat.Count; i++) {
-                        incorrectFormat[i] = incorrectFormat[i].First().ToString().ToUpper() + incorrectFormat[i].Substring(1).ToLower();
-                    }
+                        for (int i = 0; i < incorrectFormat.Count; i++) {
+                            incorrectFormat[i] = incorrectFormat[i].First().ToString().ToUpper() + incorrectFormat[i].Substring(1).ToLower();
+                        }
 
-                    if (inputLine.Contains("@")) {
-                        //delete bad data
+                        if (inputLine.Contains("@")) {
+                            //delete bad data
+                        }
+                        else if (incorrectFormat.Count() > 3) {
+                            //delete bad data
+                        }
+                        //lastname, firstname m.
+                        else if (incorrectFormat[0].Contains(",") && incorrectFormat.Count() == 3 && incorrectFormat[2].Contains(".")) {
+                            if (target == 0) {
+                                correctFormat.Add(incorrectFormat[1] + " " + incorrectFormat[2] + " " + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1));
+                            }
+                            else if (target == 1) {
+                                correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1] + " " + incorrectFormat[2]);
+                            }
+                            else if (target == 2) {
+                                correctFormat.Add(incorrectFormat[1] + incorrectFormat[2] + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1) + "@" + emailDomain_Textbox.Text);
+                            }
+                        }
+                        //lastname, firstname middle
+                        else if (incorrectFormat[0].Contains(",") && incorrectFormat.Count() == 3 && incorrectFormat[2].Count() > 1) {
+                            if (target == 0) {
+                                correctFormat.Add(incorrectFormat[1] + " " + incorrectFormat[2].ElementAt(0) + ". " + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1));
+                            }
+                            else if (target == 1) {
+                                correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1] + " " + incorrectFormat[2].ElementAt(0) + ".");
+                            }
+                            else if (target == 2) {
+                                correctFormat.Add(incorrectFormat[1] + incorrectFormat[2].ElementAt(0) + "." + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1) + "@" + emailDomain_Textbox.Text);
+                            }
+                        }
+                        //lastname, firstname m
+                        else if (incorrectFormat[0].Contains(",") && incorrectFormat.Count() == 3) {
+                            if (target == 0) {
+                                correctFormat.Add(incorrectFormat[1] + " " + incorrectFormat[2] + ". " + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1));
+                            }
+                            else if (target == 1) {
+                                correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1] + " " + incorrectFormat[2] + ".");
+                            }
+                            else if (target == 2) {
+                                correctFormat.Add(incorrectFormat[1] + incorrectFormat[2] + "." + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1) + "@" + emailDomain_Textbox.Text);
+                            }
+                        }
+                        //lastname, firstname
+                        else if (incorrectFormat[0].Contains(",")) {
+                            if (target == 0) {
+                                correctFormat.Add(incorrectFormat[1] + " " + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1));
+                            }
+                            else if (target == 1) {
+                                correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1]);
+                            }
+                            else if (target == 2) {
+                                correctFormat.Add(incorrectFormat[1] + "." + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1) + "@" + emailDomain_Textbox.Text);
+                            }
+                        }
+                        //first m. last
+                        else if (incorrectFormat.Count() == 3 && incorrectFormat[1].Contains(".")) {
+                            if (target == 0) {
+                                correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1] + " " + incorrectFormat[2]);
+                            }
+                            else if (target == 1) {
+                                correctFormat.Add(incorrectFormat[2] + ", " + incorrectFormat[0] + " " + incorrectFormat[1]);
+                            }
+                            else if (target == 2) {
+                                correctFormat.Add(incorrectFormat[0] + incorrectFormat[1] + incorrectFormat[2] + "@" + emailDomain_Textbox.Text);
+                            }
+                        }
+                        //first middle last
+                        else if (incorrectFormat.Count() == 3 && incorrectFormat[1].Count() > 1) {
+                            if (target == 0) {
+                                correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1].ElementAt(0) + ". " + incorrectFormat[2]);
+                            }
+                            else if (target == 1) {
+                                correctFormat.Add(incorrectFormat[2] + ", " + incorrectFormat[0] + " " + incorrectFormat[1].ElementAt(0) + ".");
+                            }
+                            else if (target == 2) {
+                                correctFormat.Add(incorrectFormat[0] + incorrectFormat[1].ElementAt(0) + "." + incorrectFormat[2] + "@" + emailDomain_Textbox.Text);
+                            }
+                        }
+                        //first m last
+                        else if (incorrectFormat.Count() == 3) {
+                            if (target == 0) {
+                                correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1] + ". " + incorrectFormat[2]);
+                            }
+                            else if (target == 1) {
+                                correctFormat.Add(incorrectFormat[2] + ", " + incorrectFormat[0] + " " + incorrectFormat[1] + ".");
+                            }
+                            else if (target == 2) {
+                                correctFormat.Add(incorrectFormat[0] + incorrectFormat[1] + "." + incorrectFormat[2] + "@" + emailDomain_Textbox.Text);
+                            }
+                        }
+                        //first last
+                        else {
+                            if (target == 0) {
+                                correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1]);
+                            }
+                            else if (target == 1) {
+                                correctFormat.Add(incorrectFormat[1] + ", " + incorrectFormat[0]);
+                            }
+                            else if (target == 2) {
+                                correctFormat.Add(incorrectFormat[0] + "." + incorrectFormat[1] + "@" + emailDomain_Textbox.Text);
+                            }
+                        }
                     }
-                    else if (incorrectFormat.Count() > 3) {
-                        //delete bad data
-                    }
-                    //lastname, firstname m.
-                    else if (incorrectFormat[0].Contains(",") && incorrectFormat.Count() == 3 && incorrectFormat[2].Contains(".")) {
-                        if (target == 0) {
-                            correctFormat.Add(incorrectFormat[1] + " " + incorrectFormat[2] + " " + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1));
-                        }
-                        else if (target == 1) {
-                            correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1] + " " + incorrectFormat[2]);
-                        }
-                        else if (target == 2) {
-                            correctFormat.Add(incorrectFormat[1] + incorrectFormat[2] + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1) + "@" + emailDomain_Textbox.Text);
-                        }
-                    }
-                    //lastname, firstname middle
-                    else if (incorrectFormat[0].Contains(",") && incorrectFormat.Count() == 3 && incorrectFormat[2].Count() > 1) {
-                        if (target == 0) {
-                            correctFormat.Add(incorrectFormat[1] + " " + incorrectFormat[2].ElementAt(0) + ". " + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1));
-                        }
-                        else if (target == 1) {
-                            correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1] + " " + incorrectFormat[2].ElementAt(0) + ".");
-                        }
-                        else if (target == 2) {
-                            correctFormat.Add(incorrectFormat[1] + incorrectFormat[2].ElementAt(0) + "." + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1) + "@" + emailDomain_Textbox.Text);
-                        }
-                    }
-                    //lastname, firstname m
-                    else if (incorrectFormat[0].Contains(",") && incorrectFormat.Count() == 3) {
-                        if (target == 0) {
-                            correctFormat.Add(incorrectFormat[1] + " " + incorrectFormat[2] + ". " + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1));
-                        }
-                        else if (target == 1) {
-                            correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1] + " " + incorrectFormat[2] + ".");
-                        }
-                        else if (target == 2) {
-                            correctFormat.Add(incorrectFormat[1] + incorrectFormat[2] + "." + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1) + "@" + emailDomain_Textbox.Text);
-                        }
-                    }
-                    //lastname, firstname
-                    else if (incorrectFormat[0].Contains(",")) {
-                        if (target == 0) {
-                            correctFormat.Add(incorrectFormat[1] + " " + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1));
-                        }
-                        else if (target == 1) {
-                            correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1]);
-                        }
-                        else if (target == 2) {
-                            correctFormat.Add(incorrectFormat[1] + "." + incorrectFormat[0].Substring(0, incorrectFormat[0].Length - 1) + "@" + emailDomain_Textbox.Text);
-                        }
-                    }
-                    //first m. last
-                    else if (incorrectFormat.Count() == 3 && incorrectFormat[1].Contains(".")) {
-                        if (target == 0) {
-                            correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1] + " " + incorrectFormat[2]);
-                        }
-                        else if (target == 1) {
-                            correctFormat.Add(incorrectFormat[2] + ", " + incorrectFormat[0] + " " + incorrectFormat[1]);
-                        }
-                        else if (target == 2) {
-                            correctFormat.Add(incorrectFormat[0] + incorrectFormat[1] + incorrectFormat[2] + "@" + emailDomain_Textbox.Text);
-                        }
-                    }
-                    //first middle last
-                    else if (incorrectFormat.Count() == 3 && incorrectFormat[1].Count() > 1) {
-                        if (target == 0) {
-                            correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1].ElementAt(0) + ". " + incorrectFormat[2]);
-                        }
-                        else if (target == 1) {
-                            correctFormat.Add(incorrectFormat[2] + ", " + incorrectFormat[0] + " " + incorrectFormat[1].ElementAt(0) + ".");
-                        }
-                        else if (target == 2) {
-                            correctFormat.Add(incorrectFormat[0] + incorrectFormat[1].ElementAt(0) + "." + incorrectFormat[2] + "@" + emailDomain_Textbox.Text);
-                        }
-                    }
-                    //first m last
-                    else if (incorrectFormat.Count() == 3) {
-                        if (target == 0) {
-                            correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1] + ". " + incorrectFormat[2]);
-                        }
-                        else if (target == 1) {
-                            correctFormat.Add(incorrectFormat[2] + ", " + incorrectFormat[0] + " " + incorrectFormat[1] + ".");
-                        }
-                        else if (target == 2) {
-                            correctFormat.Add(incorrectFormat[0] + incorrectFormat[1] + "." + incorrectFormat[2] + "@" + emailDomain_Textbox.Text);
-                        }
-                    }
-                    //first last
-                    else {
-                        if (target == 0) {
-                            correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1]);
-                        }
-                        else if (target == 1) {
-                            correctFormat.Add(incorrectFormat[1] + ", " + incorrectFormat[0]);
-                        }
-                        else if (target == 2) {
-                            correctFormat.Add(incorrectFormat[0] + "." + incorrectFormat[1] + "@" + emailDomain_Textbox.Text);
-                        }
+                    catch (ArgumentOutOfRangeException e) {
+                        badData = true;
+                        consoleTitle_Label.ForeColor = Color.Red;
+                        consoleTitle_Label.Text = "Error: ";
+                        fileName_TextBox.BackColor = Color.Firebrick;
+                        fileName_TextBox.ForeColor = Color.White;
+                        consoleMessage_Label.ForeColor = Color.Red;
+                        consoleMessage_Label.Text = "Bad data at input line: " + inputLineCount;
                     }
                 }
             }
@@ -232,16 +237,16 @@ namespace FormatNames {
             //manage duplicates here
             if (removeDuplicate_RadioButton.Checked) {
                 List<string> temp = new List<string>();
-                for (int i = 0; i< correctFormat.Count; i++) {
-                    if(i == correctFormat.Count - 1) {
+                for (int i = 0; i < correctFormat.Count; i++) {
+                    if (i == correctFormat.Count - 1) {
                         temp.Add(correctFormat[i]);
                         break;
                     }
-                    for(int j = i+1; j<correctFormat.Count; j++) {
+                    for (int j = i + 1; j < correctFormat.Count; j++) {
                         if (correctFormat[i].Equals(correctFormat[j])) {
                             break;
                         }
-                        else if(j == correctFormat.Count -1){
+                        else if (j == correctFormat.Count - 1) {
                             temp.Add(correctFormat[i]);
                         }
                     }
@@ -250,24 +255,27 @@ namespace FormatNames {
             }
 
             //write to file with user defined style
-            using (StreamWriter sw = File.CreateText(path)) {
-                if (capitalizedStyle_radioButton.Checked) {
-                    foreach (string s in correctFormat) {
-                        sw.WriteLine(s.ToUpper());
+            //do not modify the file if it contains bad data
+            if (badData == false) {
+                using (StreamWriter sw = File.CreateText(path)) {
+                    if (capitalizedStyle_radioButton.Checked) {
+                        foreach (string s in correctFormat) {
+                            sw.WriteLine(s.ToUpper());
+                        }
+                    }
+                    else if (lowercaseStyle_radioButton.Checked) {
+                        foreach (string s in correctFormat) {
+                            sw.WriteLine(s.ToLower());
+                        }
+                    }
+                    else {
+                        foreach (string s in correctFormat) {
+                            sw.WriteLine(s);
+                        }
                     }
                 }
-                else if (lowercaseStyle_radioButton.Checked) {
-                    foreach (string s in correctFormat) {
-                        sw.WriteLine(s.ToLower());
-                    }
-                }
-                else {
-                    foreach (string s in correctFormat) {
-                        sw.WriteLine(s);
-                    }
-                }
+                fileName_TextBox.BackColor = Color.LimeGreen;
             }
-            fileName_TextBox.BackColor = Color.LimeGreen;
         }
 
         private void preview() {

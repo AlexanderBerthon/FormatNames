@@ -269,10 +269,12 @@
             // keepDuplicates_RadioButton
             // 
             keepDuplicates_RadioButton.AutoSize = true;
+            keepDuplicates_RadioButton.Checked = true;
             keepDuplicates_RadioButton.Location = new Point(77, 21);
             keepDuplicates_RadioButton.Name = "keepDuplicates_RadioButton";
             keepDuplicates_RadioButton.Size = new Size(41, 19);
             keepDuplicates_RadioButton.TabIndex = 12;
+            keepDuplicates_RadioButton.TabStop = true;
             keepDuplicates_RadioButton.Text = "No";
             keepDuplicates_RadioButton.TextAlign = ContentAlignment.MiddleCenter;
             keepDuplicates_RadioButton.UseVisualStyleBackColor = true;
