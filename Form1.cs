@@ -237,7 +237,7 @@ namespace FormatNames {
                         fileName_TextBox.BackColor = Color.Firebrick;
                         fileName_TextBox.ForeColor = Color.White;
                         consoleMessage_Label.ForeColor = Color.Red;
-                        //consoleMessage_Label.Text = "Bad data at input line: " + inputLineCount;
+                        consoleMessage_Label.Text = "Bad data at input line: " + inputLineCount;
                     }
                 }
             }
