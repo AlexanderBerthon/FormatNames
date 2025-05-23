@@ -4,6 +4,11 @@ namespace FormatNames {
 
     /*
     Add function to sort the data file? 
+
+    Add function to support . as a delimiter 
+
+    Add option to format names firstname.lastname to and from
+
     */
     public partial class Form1 : Form {
         private OpenFileDialog openfiledialog1;
@@ -103,7 +108,9 @@ namespace FormatNames {
                         inputLineCount++;
                         incorrectFormat.Clear();
                         inputLine = inputLine.Trim();
-                        incorrectFormat.AddRange(inputLine.Split());
+                        string[] delimiter = { " ", "." };  //use this to add other delimiters as/if needed
+
+                        incorrectFormat.AddRange(inputLine.Split(delimiter, StringSplitOptions.RemoveEmptyEntries));
 
                         //this block removes empty elements from the list /bad data
                         List<string> temp = new List<string>();
@@ -113,7 +120,6 @@ namespace FormatNames {
                             }
                         }
                         incorrectFormat = temp;
-
 
                         for (int i = 0; i < incorrectFormat.Count; i++) {
                             incorrectFormat[i] = incorrectFormat[i].First().ToString().ToUpper() + incorrectFormat[i].Substring(1).ToLower();
@@ -211,6 +217,8 @@ namespace FormatNames {
                         }
                         //first last
                         else {
+                            consoleMessage_Label.Text = incorrectFormat[0];
+
                             if (target == 0) {
                                 correctFormat.Add(incorrectFormat[0] + " " + incorrectFormat[1]);
                             }
@@ -229,7 +237,7 @@ namespace FormatNames {
                         fileName_TextBox.BackColor = Color.Firebrick;
                         fileName_TextBox.ForeColor = Color.White;
                         consoleMessage_Label.ForeColor = Color.Red;
-                        consoleMessage_Label.Text = "Bad data at input line: " + inputLineCount;
+                        //consoleMessage_Label.Text = "Bad data at input line: " + inputLineCount;
                     }
                 }
             }
